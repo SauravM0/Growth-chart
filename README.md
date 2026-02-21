@@ -1,70 +1,88 @@
-# Getting Started with Create React App
+# Growth Chart Clinic
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Web app for pediatric growth chart tracking, chart visualization, and printable reports.
 
-## Available Scripts
+## License
 
-In the project directory, you can run:
+- Source code: `LICENSE`
+- Third-party notices: `THIRD_PARTY_NOTICES.md`
 
-### `npm start`
+## Local Development
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Prerequisites:
+- Node.js 18+
+- npm 9+
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Install and run:
 
-### `npm test`
+```bash
+npm install
+npm start
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Production build:
 
-### `npm run build`
+```bash
+npm run build
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Environment Variables
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Copy `.env.example` to `.env` if you need to override defaults:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+cp .env.example .env
+```
 
-### `npm run eject`
+Available variables:
+- `REACT_APP_CALIBRATION_MODE` (`true` or `false`) - enables calibration view helpers.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Push This Project to GitHub
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Run from the project root (`/mnt/c/Users/Alexa/OneDrive/Desktop/Growth Chart`):
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/<your-username>/<your-repo>.git
+git push -u origin main
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+If this repo is already initialized and you only need to push updates:
 
-## Learn More
+```bash
+git add .
+git commit -m "Prepare project for deployment"
+git push
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Deploy to Vercel
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This repository includes `vercel.json` with SPA rewrites so React Router routes (for example `/patients/123`) work on refresh.
 
-### Code Splitting
+### Option 1: Vercel Dashboard (recommended)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. Go to Vercel and click **Add New Project**.
+2. Import your GitHub repository.
+3. Framework preset should auto-detect as **Create React App**.
+4. Build command: `npm run build`
+5. Output directory: `build`
+6. Add environment variables if needed (`REACT_APP_CALIBRATION_MODE`).
+7. Deploy.
 
-### Analyzing the Bundle Size
+### Option 2: Vercel CLI
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+npm i -g vercel
+vercel login
+vercel
+vercel --prod
+```
 
-### Making a Progressive Web App
+## Recommended Post-Deploy Checks
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Open `/patients` directly and refresh the page (should not 404).
+- Open one dynamic patient route like `/patients/<id>`.
+- Confirm chart rendering and print view load correctly.

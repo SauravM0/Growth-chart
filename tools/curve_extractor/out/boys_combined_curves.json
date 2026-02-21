@@ -1,0 +1,2189 @@
+[
+  {
+    "centile": "3",
+    "series": [
+      {
+        "ageYears": 0.0,
+        "valueY": 47.5
+      },
+      {
+        "ageYears": 0.1,
+        "valueY": 50.5806
+      },
+      {
+        "ageYears": 0.2,
+        "valueY": 53.5621
+      },
+      {
+        "ageYears": 0.3,
+        "valueY": 56.4292
+      },
+      {
+        "ageYears": 0.4,
+        "valueY": 59.1664
+      },
+      {
+        "ageYears": 0.5,
+        "valueY": 61.7584
+      },
+      {
+        "ageYears": 0.6,
+        "valueY": 64.1896
+      },
+      {
+        "ageYears": 0.7,
+        "valueY": 66.4448
+      },
+      {
+        "ageYears": 0.8,
+        "valueY": 68.5086
+      },
+      {
+        "ageYears": 0.9,
+        "valueY": 70.3654
+      },
+      {
+        "ageYears": 1.0,
+        "valueY": 72.0
+      },
+      {
+        "ageYears": 1.1,
+        "valueY": 73.461
+      },
+      {
+        "ageYears": 1.2,
+        "valueY": 74.8142
+      },
+      {
+        "ageYears": 1.3,
+        "valueY": 76.0701
+      },
+      {
+        "ageYears": 1.4,
+        "valueY": 77.2388
+      },
+      {
+        "ageYears": 1.5,
+        "valueY": 78.3307
+      },
+      {
+        "ageYears": 1.6,
+        "valueY": 79.3562
+      },
+      {
+        "ageYears": 1.7,
+        "valueY": 80.3256
+      },
+      {
+        "ageYears": 1.8,
+        "valueY": 81.2491
+      },
+      {
+        "ageYears": 1.9,
+        "valueY": 82.1371
+      },
+      {
+        "ageYears": 2.0,
+        "valueY": 83.0
+      },
+      {
+        "ageYears": 2.1,
+        "valueY": 83.8435
+      },
+      {
+        "ageYears": 2.2,
+        "valueY": 84.667
+      },
+      {
+        "ageYears": 2.3,
+        "valueY": 85.4713
+      },
+      {
+        "ageYears": 2.4,
+        "valueY": 86.257
+      },
+      {
+        "ageYears": 2.5,
+        "valueY": 87.0248
+      },
+      {
+        "ageYears": 2.6,
+        "valueY": 87.7755
+      },
+      {
+        "ageYears": 2.7,
+        "valueY": 88.5098
+      },
+      {
+        "ageYears": 2.8,
+        "valueY": 89.2283
+      },
+      {
+        "ageYears": 2.9,
+        "valueY": 89.9319
+      },
+      {
+        "ageYears": 3.0,
+        "valueY": 90.6212
+      },
+      {
+        "ageYears": 3.1,
+        "valueY": 91.2968
+      },
+      {
+        "ageYears": 3.2,
+        "valueY": 91.9596
+      },
+      {
+        "ageYears": 3.3,
+        "valueY": 92.6103
+      },
+      {
+        "ageYears": 3.4,
+        "valueY": 93.2495
+      },
+      {
+        "ageYears": 3.5,
+        "valueY": 93.878
+      },
+      {
+        "ageYears": 3.6,
+        "valueY": 94.4964
+      },
+      {
+        "ageYears": 3.7,
+        "valueY": 95.1055
+      },
+      {
+        "ageYears": 3.8,
+        "valueY": 95.706
+      },
+      {
+        "ageYears": 3.9,
+        "valueY": 96.2987
+      },
+      {
+        "ageYears": 4.0,
+        "valueY": 96.8841
+      },
+      {
+        "ageYears": 4.1,
+        "valueY": 97.4631
+      },
+      {
+        "ageYears": 4.2,
+        "valueY": 98.0363
+      },
+      {
+        "ageYears": 4.3,
+        "valueY": 98.6045
+      },
+      {
+        "ageYears": 4.4,
+        "valueY": 99.1683
+      },
+      {
+        "ageYears": 4.5,
+        "valueY": 99.7285
+      },
+      {
+        "ageYears": 4.6,
+        "valueY": 100.2858
+      },
+      {
+        "ageYears": 4.7,
+        "valueY": 100.8409
+      },
+      {
+        "ageYears": 4.8,
+        "valueY": 101.3945
+      },
+      {
+        "ageYears": 4.9,
+        "valueY": 101.9473
+      },
+      {
+        "ageYears": 5.0,
+        "valueY": 102.5
+      },
+      {
+        "ageYears": 5.1,
+        "valueY": 103.0502
+      },
+      {
+        "ageYears": 5.2,
+        "valueY": 103.5949
+      },
+      {
+        "ageYears": 5.3,
+        "valueY": 104.1343
+      },
+      {
+        "ageYears": 5.4,
+        "valueY": 104.6686
+      },
+      {
+        "ageYears": 5.5,
+        "valueY": 105.1978
+      },
+      {
+        "ageYears": 5.6,
+        "valueY": 105.7221
+      },
+      {
+        "ageYears": 5.7,
+        "valueY": 106.2417
+      },
+      {
+        "ageYears": 5.8,
+        "valueY": 106.7566
+      },
+      {
+        "ageYears": 5.9,
+        "valueY": 107.267
+      },
+      {
+        "ageYears": 6.0,
+        "valueY": 107.7731
+      },
+      {
+        "ageYears": 6.1,
+        "valueY": 108.2749
+      },
+      {
+        "ageYears": 6.2,
+        "valueY": 108.7727
+      },
+      {
+        "ageYears": 6.3,
+        "valueY": 109.2665
+      },
+      {
+        "ageYears": 6.4,
+        "valueY": 109.7565
+      },
+      {
+        "ageYears": 6.5,
+        "valueY": 110.2428
+      },
+      {
+        "ageYears": 6.6,
+        "valueY": 110.7256
+      },
+      {
+        "ageYears": 6.7,
+        "valueY": 111.2049
+      },
+      {
+        "ageYears": 6.8,
+        "valueY": 111.681
+      },
+      {
+        "ageYears": 6.9,
+        "valueY": 112.154
+      },
+      {
+        "ageYears": 7.0,
+        "valueY": 112.6239
+      },
+      {
+        "ageYears": 7.1,
+        "valueY": 113.091
+      },
+      {
+        "ageYears": 7.2,
+        "valueY": 113.5554
+      },
+      {
+        "ageYears": 7.3,
+        "valueY": 114.0171
+      },
+      {
+        "ageYears": 7.4,
+        "valueY": 114.4764
+      },
+      {
+        "ageYears": 7.5,
+        "valueY": 114.9334
+      },
+      {
+        "ageYears": 7.6,
+        "valueY": 115.3882
+      },
+      {
+        "ageYears": 7.7,
+        "valueY": 115.8409
+      },
+      {
+        "ageYears": 7.8,
+        "valueY": 116.2918
+      },
+      {
+        "ageYears": 7.9,
+        "valueY": 116.7408
+      },
+      {
+        "ageYears": 8.0,
+        "valueY": 117.1882
+      },
+      {
+        "ageYears": 8.1,
+        "valueY": 117.6341
+      },
+      {
+        "ageYears": 8.2,
+        "valueY": 118.0786
+      },
+      {
+        "ageYears": 8.3,
+        "valueY": 118.5219
+      },
+      {
+        "ageYears": 8.4,
+        "valueY": 118.9641
+      },
+      {
+        "ageYears": 8.5,
+        "valueY": 119.4053
+      },
+      {
+        "ageYears": 8.6,
+        "valueY": 119.8457
+      },
+      {
+        "ageYears": 8.7,
+        "valueY": 120.2854
+      },
+      {
+        "ageYears": 8.8,
+        "valueY": 120.7246
+      },
+      {
+        "ageYears": 8.9,
+        "valueY": 121.1633
+      },
+      {
+        "ageYears": 9.0,
+        "valueY": 121.6017
+      },
+      {
+        "ageYears": 9.1,
+        "valueY": 122.04
+      },
+      {
+        "ageYears": 9.2,
+        "valueY": 122.4782
+      },
+      {
+        "ageYears": 9.3,
+        "valueY": 122.9166
+      },
+      {
+        "ageYears": 9.4,
+        "valueY": 123.3552
+      },
+      {
+        "ageYears": 9.5,
+        "valueY": 123.7943
+      },
+      {
+        "ageYears": 9.6,
+        "valueY": 124.2338
+      },
+      {
+        "ageYears": 9.7,
+        "valueY": 124.674
+      },
+      {
+        "ageYears": 9.8,
+        "valueY": 125.115
+      },
+      {
+        "ageYears": 9.9,
+        "valueY": 125.557
+      },
+      {
+        "ageYears": 10.0,
+        "valueY": 126.0
+      },
+      {
+        "ageYears": 10.1,
+        "valueY": 126.4437
+      },
+      {
+        "ageYears": 10.2,
+        "valueY": 126.8875
+      },
+      {
+        "ageYears": 10.3,
+        "valueY": 127.3313
+      },
+      {
+        "ageYears": 10.4,
+        "valueY": 127.7751
+      },
+      {
+        "ageYears": 10.5,
+        "valueY": 128.2189
+      },
+      {
+        "ageYears": 10.6,
+        "valueY": 128.6625
+      },
+      {
+        "ageYears": 10.7,
+        "valueY": 129.1059
+      },
+      {
+        "ageYears": 10.8,
+        "valueY": 129.5489
+      },
+      {
+        "ageYears": 10.9,
+        "valueY": 129.9917
+      },
+      {
+        "ageYears": 11.0,
+        "valueY": 130.434
+      },
+      {
+        "ageYears": 11.1,
+        "valueY": 130.8758
+      },
+      {
+        "ageYears": 11.2,
+        "valueY": 131.317
+      },
+      {
+        "ageYears": 11.3,
+        "valueY": 131.7577
+      },
+      {
+        "ageYears": 11.4,
+        "valueY": 132.1976
+      },
+      {
+        "ageYears": 11.5,
+        "valueY": 132.6367
+      },
+      {
+        "ageYears": 11.6,
+        "valueY": 133.0751
+      },
+      {
+        "ageYears": 11.7,
+        "valueY": 133.5125
+      },
+      {
+        "ageYears": 11.8,
+        "valueY": 133.949
+      },
+      {
+        "ageYears": 11.9,
+        "valueY": 134.3844
+      },
+      {
+        "ageYears": 12.0,
+        "valueY": 134.8188
+      },
+      {
+        "ageYears": 12.1,
+        "valueY": 135.2519
+      },
+      {
+        "ageYears": 12.2,
+        "valueY": 135.6838
+      },
+      {
+        "ageYears": 12.3,
+        "valueY": 136.1145
+      },
+      {
+        "ageYears": 12.4,
+        "valueY": 136.5437
+      },
+      {
+        "ageYears": 12.5,
+        "valueY": 136.9715
+      },
+      {
+        "ageYears": 12.6,
+        "valueY": 137.3978
+      },
+      {
+        "ageYears": 12.7,
+        "valueY": 137.8225
+      },
+      {
+        "ageYears": 12.8,
+        "valueY": 138.2456
+      },
+      {
+        "ageYears": 12.9,
+        "valueY": 138.667
+      },
+      {
+        "ageYears": 13.0,
+        "valueY": 139.0866
+      },
+      {
+        "ageYears": 13.1,
+        "valueY": 139.5043
+      },
+      {
+        "ageYears": 13.2,
+        "valueY": 139.9201
+      },
+      {
+        "ageYears": 13.3,
+        "valueY": 140.334
+      },
+      {
+        "ageYears": 13.4,
+        "valueY": 140.7457
+      },
+      {
+        "ageYears": 13.5,
+        "valueY": 141.1554
+      },
+      {
+        "ageYears": 13.6,
+        "valueY": 141.5629
+      },
+      {
+        "ageYears": 13.7,
+        "valueY": 141.9681
+      },
+      {
+        "ageYears": 13.8,
+        "valueY": 142.371
+      },
+      {
+        "ageYears": 13.9,
+        "valueY": 142.7715
+      },
+      {
+        "ageYears": 14.0,
+        "valueY": 143.1696
+      },
+      {
+        "ageYears": 14.1,
+        "valueY": 143.5651
+      },
+      {
+        "ageYears": 14.2,
+        "valueY": 143.958
+      },
+      {
+        "ageYears": 14.3,
+        "valueY": 144.3483
+      },
+      {
+        "ageYears": 14.4,
+        "valueY": 144.7359
+      },
+      {
+        "ageYears": 14.5,
+        "valueY": 145.1206
+      },
+      {
+        "ageYears": 14.6,
+        "valueY": 145.5025
+      },
+      {
+        "ageYears": 14.7,
+        "valueY": 145.8814
+      },
+      {
+        "ageYears": 14.8,
+        "valueY": 146.2574
+      },
+      {
+        "ageYears": 14.9,
+        "valueY": 146.6303
+      },
+      {
+        "ageYears": 15.0,
+        "valueY": 147.0
+      },
+      {
+        "ageYears": 15.1,
+        "valueY": 147.3669
+      },
+      {
+        "ageYears": 15.2,
+        "valueY": 147.7314
+      },
+      {
+        "ageYears": 15.3,
+        "valueY": 148.0934
+      },
+      {
+        "ageYears": 15.4,
+        "valueY": 148.453
+      },
+      {
+        "ageYears": 15.5,
+        "valueY": 148.8101
+      },
+      {
+        "ageYears": 15.6,
+        "valueY": 149.1649
+      },
+      {
+        "ageYears": 15.7,
+        "valueY": 149.5173
+      },
+      {
+        "ageYears": 15.8,
+        "valueY": 149.8673
+      },
+      {
+        "ageYears": 15.9,
+        "valueY": 150.215
+      },
+      {
+        "ageYears": 16.0,
+        "valueY": 150.5603
+      },
+      {
+        "ageYears": 16.1,
+        "valueY": 150.9033
+      },
+      {
+        "ageYears": 16.2,
+        "valueY": 151.244
+      },
+      {
+        "ageYears": 16.3,
+        "valueY": 151.5824
+      },
+      {
+        "ageYears": 16.4,
+        "valueY": 151.9186
+      },
+      {
+        "ageYears": 16.5,
+        "valueY": 152.2524
+      },
+      {
+        "ageYears": 16.6,
+        "valueY": 152.5841
+      },
+      {
+        "ageYears": 16.7,
+        "valueY": 152.9135
+      },
+      {
+        "ageYears": 16.8,
+        "valueY": 153.2407
+      },
+      {
+        "ageYears": 16.9,
+        "valueY": 153.5657
+      },
+      {
+        "ageYears": 17.0,
+        "valueY": 153.8885
+      },
+      {
+        "ageYears": 17.1,
+        "valueY": 154.2091
+      },
+      {
+        "ageYears": 17.2,
+        "valueY": 154.5276
+      },
+      {
+        "ageYears": 17.3,
+        "valueY": 154.844
+      },
+      {
+        "ageYears": 17.4,
+        "valueY": 155.1582
+      },
+      {
+        "ageYears": 17.5,
+        "valueY": 155.4704
+      },
+      {
+        "ageYears": 17.6,
+        "valueY": 155.7804
+      },
+      {
+        "ageYears": 17.7,
+        "valueY": 156.0884
+      },
+      {
+        "ageYears": 17.8,
+        "valueY": 156.3943
+      },
+      {
+        "ageYears": 17.9,
+        "valueY": 156.6982
+      },
+      {
+        "ageYears": 18.0,
+        "valueY": 157.0
+      }
+    ]
+  },
+  {
+    "centile": "50",
+    "series": [
+      {
+        "ageYears": 0.0,
+        "valueY": 50.0
+      },
+      {
+        "ageYears": 0.1,
+        "valueY": 53.1056
+      },
+      {
+        "ageYears": 0.2,
+        "valueY": 56.1131
+      },
+      {
+        "ageYears": 0.3,
+        "valueY": 59.0089
+      },
+      {
+        "ageYears": 0.4,
+        "valueY": 61.7792
+      },
+      {
+        "ageYears": 0.5,
+        "valueY": 64.4105
+      },
+      {
+        "ageYears": 0.6,
+        "valueY": 66.8889
+      },
+      {
+        "ageYears": 0.7,
+        "valueY": 69.2007
+      },
+      {
+        "ageYears": 0.8,
+        "valueY": 71.3323
+      },
+      {
+        "ageYears": 0.9,
+        "valueY": 73.27
+      },
+      {
+        "ageYears": 1.0,
+        "valueY": 75.0
+      },
+      {
+        "ageYears": 1.1,
+        "valueY": 76.5641
+      },
+      {
+        "ageYears": 1.2,
+        "valueY": 78.0202
+      },
+      {
+        "ageYears": 1.3,
+        "valueY": 79.3782
+      },
+      {
+        "ageYears": 1.4,
+        "valueY": 80.6486
+      },
+      {
+        "ageYears": 1.5,
+        "valueY": 81.8414
+      },
+      {
+        "ageYears": 1.6,
+        "valueY": 82.9669
+      },
+      {
+        "ageYears": 1.7,
+        "valueY": 84.0353
+      },
+      {
+        "ageYears": 1.8,
+        "valueY": 85.0568
+      },
+      {
+        "ageYears": 1.9,
+        "valueY": 86.0417
+      },
+      {
+        "ageYears": 2.0,
+        "valueY": 87.0
+      },
+      {
+        "ageYears": 2.1,
+        "valueY": 87.9373
+      },
+      {
+        "ageYears": 2.2,
+        "valueY": 88.8529
+      },
+      {
+        "ageYears": 2.3,
+        "valueY": 89.7475
+      },
+      {
+        "ageYears": 2.4,
+        "valueY": 90.6219
+      },
+      {
+        "ageYears": 2.5,
+        "valueY": 91.4771
+      },
+      {
+        "ageYears": 2.6,
+        "valueY": 92.3137
+      },
+      {
+        "ageYears": 2.7,
+        "valueY": 93.1327
+      },
+      {
+        "ageYears": 2.8,
+        "valueY": 93.9349
+      },
+      {
+        "ageYears": 2.9,
+        "valueY": 94.7211
+      },
+      {
+        "ageYears": 3.0,
+        "valueY": 95.4921
+      },
+      {
+        "ageYears": 3.1,
+        "valueY": 96.2488
+      },
+      {
+        "ageYears": 3.2,
+        "valueY": 96.9919
+      },
+      {
+        "ageYears": 3.3,
+        "valueY": 97.7224
+      },
+      {
+        "ageYears": 3.4,
+        "valueY": 98.441
+      },
+      {
+        "ageYears": 3.5,
+        "valueY": 99.1485
+      },
+      {
+        "ageYears": 3.6,
+        "valueY": 99.8459
+      },
+      {
+        "ageYears": 3.7,
+        "valueY": 100.5339
+      },
+      {
+        "ageYears": 3.8,
+        "valueY": 101.2133
+      },
+      {
+        "ageYears": 3.9,
+        "valueY": 101.885
+      },
+      {
+        "ageYears": 4.0,
+        "valueY": 102.5498
+      },
+      {
+        "ageYears": 4.1,
+        "valueY": 103.2085
+      },
+      {
+        "ageYears": 4.2,
+        "valueY": 103.8619
+      },
+      {
+        "ageYears": 4.3,
+        "valueY": 104.511
+      },
+      {
+        "ageYears": 4.4,
+        "valueY": 105.1564
+      },
+      {
+        "ageYears": 4.5,
+        "valueY": 105.7991
+      },
+      {
+        "ageYears": 4.6,
+        "valueY": 106.4399
+      },
+      {
+        "ageYears": 4.7,
+        "valueY": 107.0795
+      },
+      {
+        "ageYears": 4.8,
+        "valueY": 107.7188
+      },
+      {
+        "ageYears": 4.9,
+        "valueY": 108.3587
+      },
+      {
+        "ageYears": 5.0,
+        "valueY": 109.0
+      },
+      {
+        "ageYears": 5.1,
+        "valueY": 109.6384
+      },
+      {
+        "ageYears": 5.2,
+        "valueY": 110.2694
+      },
+      {
+        "ageYears": 5.3,
+        "valueY": 110.8931
+      },
+      {
+        "ageYears": 5.4,
+        "valueY": 111.51
+      },
+      {
+        "ageYears": 5.5,
+        "valueY": 112.1202
+      },
+      {
+        "ageYears": 5.6,
+        "valueY": 112.724
+      },
+      {
+        "ageYears": 5.7,
+        "valueY": 113.3217
+      },
+      {
+        "ageYears": 5.8,
+        "valueY": 113.9135
+      },
+      {
+        "ageYears": 5.9,
+        "valueY": 114.4998
+      },
+      {
+        "ageYears": 6.0,
+        "valueY": 115.0807
+      },
+      {
+        "ageYears": 6.1,
+        "valueY": 115.6565
+      },
+      {
+        "ageYears": 6.2,
+        "valueY": 116.2276
+      },
+      {
+        "ageYears": 6.3,
+        "valueY": 116.7941
+      },
+      {
+        "ageYears": 6.4,
+        "valueY": 117.3564
+      },
+      {
+        "ageYears": 6.5,
+        "valueY": 117.9147
+      },
+      {
+        "ageYears": 6.6,
+        "valueY": 118.4692
+      },
+      {
+        "ageYears": 6.7,
+        "valueY": 119.0203
+      },
+      {
+        "ageYears": 6.8,
+        "valueY": 119.5681
+      },
+      {
+        "ageYears": 6.9,
+        "valueY": 120.1131
+      },
+      {
+        "ageYears": 7.0,
+        "valueY": 120.6553
+      },
+      {
+        "ageYears": 7.1,
+        "valueY": 121.1952
+      },
+      {
+        "ageYears": 7.2,
+        "valueY": 121.7329
+      },
+      {
+        "ageYears": 7.3,
+        "valueY": 122.2688
+      },
+      {
+        "ageYears": 7.4,
+        "valueY": 122.803
+      },
+      {
+        "ageYears": 7.5,
+        "valueY": 123.3359
+      },
+      {
+        "ageYears": 7.6,
+        "valueY": 123.8678
+      },
+      {
+        "ageYears": 7.7,
+        "valueY": 124.3988
+      },
+      {
+        "ageYears": 7.8,
+        "valueY": 124.9293
+      },
+      {
+        "ageYears": 7.9,
+        "valueY": 125.4595
+      },
+      {
+        "ageYears": 8.0,
+        "valueY": 125.9897
+      },
+      {
+        "ageYears": 8.1,
+        "valueY": 126.5201
+      },
+      {
+        "ageYears": 8.2,
+        "valueY": 127.0511
+      },
+      {
+        "ageYears": 8.3,
+        "valueY": 127.5828
+      },
+      {
+        "ageYears": 8.4,
+        "valueY": 128.1156
+      },
+      {
+        "ageYears": 8.5,
+        "valueY": 128.6497
+      },
+      {
+        "ageYears": 8.6,
+        "valueY": 129.1854
+      },
+      {
+        "ageYears": 8.7,
+        "valueY": 129.723
+      },
+      {
+        "ageYears": 8.8,
+        "valueY": 130.2626
+      },
+      {
+        "ageYears": 8.9,
+        "valueY": 130.8046
+      },
+      {
+        "ageYears": 9.0,
+        "valueY": 131.3493
+      },
+      {
+        "ageYears": 9.1,
+        "valueY": 131.8969
+      },
+      {
+        "ageYears": 9.2,
+        "valueY": 132.4477
+      },
+      {
+        "ageYears": 9.3,
+        "valueY": 133.0019
+      },
+      {
+        "ageYears": 9.4,
+        "valueY": 133.5598
+      },
+      {
+        "ageYears": 9.5,
+        "valueY": 134.1217
+      },
+      {
+        "ageYears": 9.6,
+        "valueY": 134.6878
+      },
+      {
+        "ageYears": 9.7,
+        "valueY": 135.2584
+      },
+      {
+        "ageYears": 9.8,
+        "valueY": 135.8338
+      },
+      {
+        "ageYears": 9.9,
+        "valueY": 136.4143
+      },
+      {
+        "ageYears": 10.0,
+        "valueY": 137.0
+      },
+      {
+        "ageYears": 10.1,
+        "valueY": 137.5948
+      },
+      {
+        "ageYears": 10.2,
+        "valueY": 138.2018
+      },
+      {
+        "ageYears": 10.3,
+        "valueY": 138.8203
+      },
+      {
+        "ageYears": 10.4,
+        "valueY": 139.4495
+      },
+      {
+        "ageYears": 10.5,
+        "valueY": 140.0889
+      },
+      {
+        "ageYears": 10.6,
+        "valueY": 140.7377
+      },
+      {
+        "ageYears": 10.7,
+        "valueY": 141.3951
+      },
+      {
+        "ageYears": 10.8,
+        "valueY": 142.0606
+      },
+      {
+        "ageYears": 10.9,
+        "valueY": 142.7333
+      },
+      {
+        "ageYears": 11.0,
+        "valueY": 143.4127
+      },
+      {
+        "ageYears": 11.1,
+        "valueY": 144.098
+      },
+      {
+        "ageYears": 11.2,
+        "valueY": 144.7885
+      },
+      {
+        "ageYears": 11.3,
+        "valueY": 145.4835
+      },
+      {
+        "ageYears": 11.4,
+        "valueY": 146.1824
+      },
+      {
+        "ageYears": 11.5,
+        "valueY": 146.8843
+      },
+      {
+        "ageYears": 11.6,
+        "valueY": 147.5887
+      },
+      {
+        "ageYears": 11.7,
+        "valueY": 148.2948
+      },
+      {
+        "ageYears": 11.8,
+        "valueY": 149.0019
+      },
+      {
+        "ageYears": 11.9,
+        "valueY": 149.7094
+      },
+      {
+        "ageYears": 12.0,
+        "valueY": 150.4165
+      },
+      {
+        "ageYears": 12.1,
+        "valueY": 151.1225
+      },
+      {
+        "ageYears": 12.2,
+        "valueY": 151.8268
+      },
+      {
+        "ageYears": 12.3,
+        "valueY": 152.5286
+      },
+      {
+        "ageYears": 12.4,
+        "valueY": 153.2272
+      },
+      {
+        "ageYears": 12.5,
+        "valueY": 153.9221
+      },
+      {
+        "ageYears": 12.6,
+        "valueY": 154.6123
+      },
+      {
+        "ageYears": 12.7,
+        "valueY": 155.2973
+      },
+      {
+        "ageYears": 12.8,
+        "valueY": 155.9764
+      },
+      {
+        "ageYears": 12.9,
+        "valueY": 156.6488
+      },
+      {
+        "ageYears": 13.0,
+        "valueY": 157.3139
+      },
+      {
+        "ageYears": 13.1,
+        "valueY": 157.9709
+      },
+      {
+        "ageYears": 13.2,
+        "valueY": 158.6192
+      },
+      {
+        "ageYears": 13.3,
+        "valueY": 159.2581
+      },
+      {
+        "ageYears": 13.4,
+        "valueY": 159.8868
+      },
+      {
+        "ageYears": 13.5,
+        "valueY": 160.5047
+      },
+      {
+        "ageYears": 13.6,
+        "valueY": 161.1111
+      },
+      {
+        "ageYears": 13.7,
+        "valueY": 161.7053
+      },
+      {
+        "ageYears": 13.8,
+        "valueY": 162.2866
+      },
+      {
+        "ageYears": 13.9,
+        "valueY": 162.8542
+      },
+      {
+        "ageYears": 14.0,
+        "valueY": 163.4075
+      },
+      {
+        "ageYears": 14.1,
+        "valueY": 163.9458
+      },
+      {
+        "ageYears": 14.2,
+        "valueY": 164.4684
+      },
+      {
+        "ageYears": 14.3,
+        "valueY": 164.9746
+      },
+      {
+        "ageYears": 14.4,
+        "valueY": 165.4637
+      },
+      {
+        "ageYears": 14.5,
+        "valueY": 165.935
+      },
+      {
+        "ageYears": 14.6,
+        "valueY": 166.3878
+      },
+      {
+        "ageYears": 14.7,
+        "valueY": 166.8214
+      },
+      {
+        "ageYears": 14.8,
+        "valueY": 167.2351
+      },
+      {
+        "ageYears": 14.9,
+        "valueY": 167.6282
+      },
+      {
+        "ageYears": 15.0,
+        "valueY": 168.0
+      },
+      {
+        "ageYears": 15.1,
+        "valueY": 168.359
+      },
+      {
+        "ageYears": 15.2,
+        "valueY": 168.7141
+      },
+      {
+        "ageYears": 15.3,
+        "valueY": 169.0649
+      },
+      {
+        "ageYears": 15.4,
+        "valueY": 169.4112
+      },
+      {
+        "ageYears": 15.5,
+        "valueY": 169.7527
+      },
+      {
+        "ageYears": 15.6,
+        "valueY": 170.0892
+      },
+      {
+        "ageYears": 15.7,
+        "valueY": 170.4205
+      },
+      {
+        "ageYears": 15.8,
+        "valueY": 170.7462
+      },
+      {
+        "ageYears": 15.9,
+        "valueY": 171.0662
+      },
+      {
+        "ageYears": 16.0,
+        "valueY": 171.3801
+      },
+      {
+        "ageYears": 16.1,
+        "valueY": 171.6878
+      },
+      {
+        "ageYears": 16.2,
+        "valueY": 171.9889
+      },
+      {
+        "ageYears": 16.3,
+        "valueY": 172.2832
+      },
+      {
+        "ageYears": 16.4,
+        "valueY": 172.5705
+      },
+      {
+        "ageYears": 16.5,
+        "valueY": 172.8504
+      },
+      {
+        "ageYears": 16.6,
+        "valueY": 173.1228
+      },
+      {
+        "ageYears": 16.7,
+        "valueY": 173.3874
+      },
+      {
+        "ageYears": 16.8,
+        "valueY": 173.6439
+      },
+      {
+        "ageYears": 16.9,
+        "valueY": 173.8921
+      },
+      {
+        "ageYears": 17.0,
+        "valueY": 174.1317
+      },
+      {
+        "ageYears": 17.1,
+        "valueY": 174.3625
+      },
+      {
+        "ageYears": 17.2,
+        "valueY": 174.5842
+      },
+      {
+        "ageYears": 17.3,
+        "valueY": 174.7966
+      },
+      {
+        "ageYears": 17.4,
+        "valueY": 174.9993
+      },
+      {
+        "ageYears": 17.5,
+        "valueY": 175.1922
+      },
+      {
+        "ageYears": 17.6,
+        "valueY": 175.375
+      },
+      {
+        "ageYears": 17.7,
+        "valueY": 175.5474
+      },
+      {
+        "ageYears": 17.8,
+        "valueY": 175.7092
+      },
+      {
+        "ageYears": 17.9,
+        "valueY": 175.8602
+      },
+      {
+        "ageYears": 18.0,
+        "valueY": 176.0
+      }
+    ]
+  },
+  {
+    "centile": "97",
+    "series": [
+      {
+        "ageYears": 0.0,
+        "valueY": 53.0
+      },
+      {
+        "ageYears": 0.1,
+        "valueY": 56.2045
+      },
+      {
+        "ageYears": 0.2,
+        "valueY": 59.3093
+      },
+      {
+        "ageYears": 0.3,
+        "valueY": 62.3015
+      },
+      {
+        "ageYears": 0.4,
+        "valueY": 65.168
+      },
+      {
+        "ageYears": 0.5,
+        "valueY": 67.8958
+      },
+      {
+        "ageYears": 0.6,
+        "valueY": 70.472
+      },
+      {
+        "ageYears": 0.7,
+        "valueY": 72.8835
+      },
+      {
+        "ageYears": 0.8,
+        "valueY": 75.1173
+      },
+      {
+        "ageYears": 0.9,
+        "valueY": 77.1605
+      },
+      {
+        "ageYears": 1.0,
+        "valueY": 79.0
+      },
+      {
+        "ageYears": 1.1,
+        "valueY": 80.6773
+      },
+      {
+        "ageYears": 1.2,
+        "valueY": 82.2481
+      },
+      {
+        "ageYears": 1.3,
+        "valueY": 83.721
+      },
+      {
+        "ageYears": 1.4,
+        "valueY": 85.1044
+      },
+      {
+        "ageYears": 1.5,
+        "valueY": 86.4068
+      },
+      {
+        "ageYears": 1.6,
+        "valueY": 87.6367
+      },
+      {
+        "ageYears": 1.7,
+        "valueY": 88.8024
+      },
+      {
+        "ageYears": 1.8,
+        "valueY": 89.9126
+      },
+      {
+        "ageYears": 1.9,
+        "valueY": 90.9756
+      },
+      {
+        "ageYears": 2.0,
+        "valueY": 92.0
+      },
+      {
+        "ageYears": 2.1,
+        "valueY": 92.9941
+      },
+      {
+        "ageYears": 2.2,
+        "valueY": 93.9615
+      },
+      {
+        "ageYears": 2.3,
+        "valueY": 94.9033
+      },
+      {
+        "ageYears": 2.4,
+        "valueY": 95.8208
+      },
+      {
+        "ageYears": 2.5,
+        "valueY": 96.7151
+      },
+      {
+        "ageYears": 2.6,
+        "valueY": 97.5874
+      },
+      {
+        "ageYears": 2.7,
+        "valueY": 98.4389
+      },
+      {
+        "ageYears": 2.8,
+        "valueY": 99.2708
+      },
+      {
+        "ageYears": 2.9,
+        "valueY": 100.0842
+      },
+      {
+        "ageYears": 3.0,
+        "valueY": 100.8804
+      },
+      {
+        "ageYears": 3.1,
+        "valueY": 101.6604
+      },
+      {
+        "ageYears": 3.2,
+        "valueY": 102.4256
+      },
+      {
+        "ageYears": 3.3,
+        "valueY": 103.1771
+      },
+      {
+        "ageYears": 3.4,
+        "valueY": 103.916
+      },
+      {
+        "ageYears": 3.5,
+        "valueY": 104.6436
+      },
+      {
+        "ageYears": 3.6,
+        "valueY": 105.361
+      },
+      {
+        "ageYears": 3.7,
+        "valueY": 106.0695
+      },
+      {
+        "ageYears": 3.8,
+        "valueY": 106.7701
+      },
+      {
+        "ageYears": 3.9,
+        "valueY": 107.4641
+      },
+      {
+        "ageYears": 4.0,
+        "valueY": 108.1527
+      },
+      {
+        "ageYears": 4.1,
+        "valueY": 108.8371
+      },
+      {
+        "ageYears": 4.2,
+        "valueY": 109.5183
+      },
+      {
+        "ageYears": 4.3,
+        "valueY": 110.1977
+      },
+      {
+        "ageYears": 4.4,
+        "valueY": 110.8764
+      },
+      {
+        "ageYears": 4.5,
+        "valueY": 111.5556
+      },
+      {
+        "ageYears": 4.6,
+        "valueY": 112.2364
+      },
+      {
+        "ageYears": 4.7,
+        "valueY": 112.9201
+      },
+      {
+        "ageYears": 4.8,
+        "valueY": 113.6078
+      },
+      {
+        "ageYears": 4.9,
+        "valueY": 114.3007
+      },
+      {
+        "ageYears": 5.0,
+        "valueY": 115.0
+      },
+      {
+        "ageYears": 5.1,
+        "valueY": 115.7
+      },
+      {
+        "ageYears": 5.2,
+        "valueY": 116.3945
+      },
+      {
+        "ageYears": 5.3,
+        "valueY": 117.0835
+      },
+      {
+        "ageYears": 5.4,
+        "valueY": 117.7673
+      },
+      {
+        "ageYears": 5.5,
+        "valueY": 118.446
+      },
+      {
+        "ageYears": 5.6,
+        "valueY": 119.12
+      },
+      {
+        "ageYears": 5.7,
+        "valueY": 119.7893
+      },
+      {
+        "ageYears": 5.8,
+        "valueY": 120.4542
+      },
+      {
+        "ageYears": 5.9,
+        "valueY": 121.1149
+      },
+      {
+        "ageYears": 6.0,
+        "valueY": 121.7716
+      },
+      {
+        "ageYears": 6.1,
+        "valueY": 122.4244
+      },
+      {
+        "ageYears": 6.2,
+        "valueY": 123.0736
+      },
+      {
+        "ageYears": 6.3,
+        "valueY": 123.7193
+      },
+      {
+        "ageYears": 6.4,
+        "valueY": 124.3618
+      },
+      {
+        "ageYears": 6.5,
+        "valueY": 125.0013
+      },
+      {
+        "ageYears": 6.6,
+        "valueY": 125.6379
+      },
+      {
+        "ageYears": 6.7,
+        "valueY": 126.2718
+      },
+      {
+        "ageYears": 6.8,
+        "valueY": 126.9034
+      },
+      {
+        "ageYears": 6.9,
+        "valueY": 127.5326
+      },
+      {
+        "ageYears": 7.0,
+        "valueY": 128.1598
+      },
+      {
+        "ageYears": 7.1,
+        "valueY": 128.7852
+      },
+      {
+        "ageYears": 7.2,
+        "valueY": 129.4089
+      },
+      {
+        "ageYears": 7.3,
+        "valueY": 130.0311
+      },
+      {
+        "ageYears": 7.4,
+        "valueY": 130.6521
+      },
+      {
+        "ageYears": 7.5,
+        "valueY": 131.2719
+      },
+      {
+        "ageYears": 7.6,
+        "valueY": 131.891
+      },
+      {
+        "ageYears": 7.7,
+        "valueY": 132.5093
+      },
+      {
+        "ageYears": 7.8,
+        "valueY": 133.1272
+      },
+      {
+        "ageYears": 7.9,
+        "valueY": 133.7448
+      },
+      {
+        "ageYears": 8.0,
+        "valueY": 134.3623
+      },
+      {
+        "ageYears": 8.1,
+        "valueY": 134.9799
+      },
+      {
+        "ageYears": 8.2,
+        "valueY": 135.5979
+      },
+      {
+        "ageYears": 8.3,
+        "valueY": 136.2164
+      },
+      {
+        "ageYears": 8.4,
+        "valueY": 136.8355
+      },
+      {
+        "ageYears": 8.5,
+        "valueY": 137.4556
+      },
+      {
+        "ageYears": 8.6,
+        "valueY": 138.0768
+      },
+      {
+        "ageYears": 8.7,
+        "valueY": 138.6993
+      },
+      {
+        "ageYears": 8.8,
+        "valueY": 139.3233
+      },
+      {
+        "ageYears": 8.9,
+        "valueY": 139.9489
+      },
+      {
+        "ageYears": 9.0,
+        "valueY": 140.5765
+      },
+      {
+        "ageYears": 9.1,
+        "valueY": 141.2062
+      },
+      {
+        "ageYears": 9.2,
+        "valueY": 141.8382
+      },
+      {
+        "ageYears": 9.3,
+        "valueY": 142.4726
+      },
+      {
+        "ageYears": 9.4,
+        "valueY": 143.1097
+      },
+      {
+        "ageYears": 9.5,
+        "valueY": 143.7498
+      },
+      {
+        "ageYears": 9.6,
+        "valueY": 144.3929
+      },
+      {
+        "ageYears": 9.7,
+        "valueY": 145.0392
+      },
+      {
+        "ageYears": 9.8,
+        "valueY": 145.6891
+      },
+      {
+        "ageYears": 9.9,
+        "valueY": 146.3426
+      },
+      {
+        "ageYears": 10.0,
+        "valueY": 147.0
+      },
+      {
+        "ageYears": 10.1,
+        "valueY": 147.665
+      },
+      {
+        "ageYears": 10.2,
+        "valueY": 148.3408
+      },
+      {
+        "ageYears": 10.3,
+        "valueY": 149.0268
+      },
+      {
+        "ageYears": 10.4,
+        "valueY": 149.7224
+      },
+      {
+        "ageYears": 10.5,
+        "valueY": 150.4268
+      },
+      {
+        "ageYears": 10.6,
+        "valueY": 151.1395
+      },
+      {
+        "ageYears": 10.7,
+        "valueY": 151.8598
+      },
+      {
+        "ageYears": 10.8,
+        "valueY": 152.5871
+      },
+      {
+        "ageYears": 10.9,
+        "valueY": 153.3208
+      },
+      {
+        "ageYears": 11.0,
+        "valueY": 154.0602
+      },
+      {
+        "ageYears": 11.1,
+        "valueY": 154.8046
+      },
+      {
+        "ageYears": 11.2,
+        "valueY": 155.5535
+      },
+      {
+        "ageYears": 11.3,
+        "valueY": 156.3062
+      },
+      {
+        "ageYears": 11.4,
+        "valueY": 157.062
+      },
+      {
+        "ageYears": 11.5,
+        "valueY": 157.8204
+      },
+      {
+        "ageYears": 11.6,
+        "valueY": 158.5807
+      },
+      {
+        "ageYears": 11.7,
+        "valueY": 159.3422
+      },
+      {
+        "ageYears": 11.8,
+        "valueY": 160.1043
+      },
+      {
+        "ageYears": 11.9,
+        "valueY": 160.8664
+      },
+      {
+        "ageYears": 12.0,
+        "valueY": 161.6278
+      },
+      {
+        "ageYears": 12.1,
+        "valueY": 162.3879
+      },
+      {
+        "ageYears": 12.2,
+        "valueY": 163.1461
+      },
+      {
+        "ageYears": 12.3,
+        "valueY": 163.9017
+      },
+      {
+        "ageYears": 12.4,
+        "valueY": 164.6541
+      },
+      {
+        "ageYears": 12.5,
+        "valueY": 165.4027
+      },
+      {
+        "ageYears": 12.6,
+        "valueY": 166.1467
+      },
+      {
+        "ageYears": 12.7,
+        "valueY": 166.8857
+      },
+      {
+        "ageYears": 12.8,
+        "valueY": 167.6188
+      },
+      {
+        "ageYears": 12.9,
+        "valueY": 168.3456
+      },
+      {
+        "ageYears": 13.0,
+        "valueY": 169.0653
+      },
+      {
+        "ageYears": 13.1,
+        "valueY": 169.7774
+      },
+      {
+        "ageYears": 13.2,
+        "valueY": 170.4811
+      },
+      {
+        "ageYears": 13.3,
+        "valueY": 171.1759
+      },
+      {
+        "ageYears": 13.4,
+        "valueY": 171.8611
+      },
+      {
+        "ageYears": 13.5,
+        "valueY": 172.5361
+      },
+      {
+        "ageYears": 13.6,
+        "valueY": 173.2002
+      },
+      {
+        "ageYears": 13.7,
+        "valueY": 173.8528
+      },
+      {
+        "ageYears": 13.8,
+        "valueY": 174.4933
+      },
+      {
+        "ageYears": 13.9,
+        "valueY": 175.121
+      },
+      {
+        "ageYears": 14.0,
+        "valueY": 175.7352
+      },
+      {
+        "ageYears": 14.1,
+        "valueY": 176.3355
+      },
+      {
+        "ageYears": 14.2,
+        "valueY": 176.921
+      },
+      {
+        "ageYears": 14.3,
+        "valueY": 177.4912
+      },
+      {
+        "ageYears": 14.4,
+        "valueY": 178.0455
+      },
+      {
+        "ageYears": 14.5,
+        "valueY": 178.5831
+      },
+      {
+        "ageYears": 14.6,
+        "valueY": 179.1035
+      },
+      {
+        "ageYears": 14.7,
+        "valueY": 179.606
+      },
+      {
+        "ageYears": 14.8,
+        "valueY": 180.0901
+      },
+      {
+        "ageYears": 14.9,
+        "valueY": 180.5549
+      },
+      {
+        "ageYears": 15.0,
+        "valueY": 181.0
+      },
+      {
+        "ageYears": 15.1,
+        "valueY": 181.4325
+      },
+      {
+        "ageYears": 15.2,
+        "valueY": 181.8599
+      },
+      {
+        "ageYears": 15.3,
+        "valueY": 182.2821
+      },
+      {
+        "ageYears": 15.4,
+        "valueY": 182.6988
+      },
+      {
+        "ageYears": 15.5,
+        "valueY": 183.1098
+      },
+      {
+        "ageYears": 15.6,
+        "valueY": 183.5151
+      },
+      {
+        "ageYears": 15.7,
+        "valueY": 183.9143
+      },
+      {
+        "ageYears": 15.8,
+        "valueY": 184.3073
+      },
+      {
+        "ageYears": 15.9,
+        "valueY": 184.6939
+      },
+      {
+        "ageYears": 16.0,
+        "valueY": 185.0739
+      },
+      {
+        "ageYears": 16.1,
+        "valueY": 185.4472
+      },
+      {
+        "ageYears": 16.2,
+        "valueY": 185.8135
+      },
+      {
+        "ageYears": 16.3,
+        "valueY": 186.1726
+      },
+      {
+        "ageYears": 16.4,
+        "valueY": 186.5244
+      },
+      {
+        "ageYears": 16.5,
+        "valueY": 186.8686
+      },
+      {
+        "ageYears": 16.6,
+        "valueY": 187.2052
+      },
+      {
+        "ageYears": 16.7,
+        "valueY": 187.5338
+      },
+      {
+        "ageYears": 16.8,
+        "valueY": 187.8543
+      },
+      {
+        "ageYears": 16.9,
+        "valueY": 188.1665
+      },
+      {
+        "ageYears": 17.0,
+        "valueY": 188.4703
+      },
+      {
+        "ageYears": 17.1,
+        "valueY": 188.7654
+      },
+      {
+        "ageYears": 17.2,
+        "valueY": 189.0516
+      },
+      {
+        "ageYears": 17.3,
+        "valueY": 189.3288
+      },
+      {
+        "ageYears": 17.4,
+        "valueY": 189.5968
+      },
+      {
+        "ageYears": 17.5,
+        "valueY": 189.8553
+      },
+      {
+        "ageYears": 17.6,
+        "valueY": 190.1042
+      },
+      {
+        "ageYears": 17.7,
+        "valueY": 190.3433
+      },
+      {
+        "ageYears": 17.8,
+        "valueY": 190.5725
+      },
+      {
+        "ageYears": 17.9,
+        "valueY": 190.7914
+      },
+      {
+        "ageYears": 18.0,
+        "valueY": 191.0
+      }
+    ]
+  }
+]

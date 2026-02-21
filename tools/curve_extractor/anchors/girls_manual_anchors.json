@@ -1,0 +1,58 @@
+{
+  "sex": "F",
+  "imagePath": "../../../public/charts/girls_0_18.png",
+  "plotRectPx": { "x": 220, "y": 360, "w": 1800, "h": 2760 },
+  "axis": {
+    "xMin": 0,
+    "xMax": 18,
+    "yMin": 0,
+    "yMax": 175,
+    "sampleStepYears": 0.1
+  },
+  "notes": [
+    "Anchor each visible centile curve with 15-30 points spread across ages 0-18.",
+    "Use ageYears/valueY for chart-coordinate anchors, or x/y for pixel anchors.",
+    "This file is a starter template and must be replaced with calibrated anchors."
+  ],
+  "curves": [
+    {
+      "centile": "3",
+      "monotonic": "increasing",
+      "anchors": [
+        { "ageYears": 0, "valueY": 46.5 },
+        { "ageYears": 1, "valueY": 70.0 },
+        { "ageYears": 2, "valueY": 81.5 },
+        { "ageYears": 5, "valueY": 100.5 },
+        { "ageYears": 10, "valueY": 130.0 },
+        { "ageYears": 15, "valueY": 150.0 },
+        { "ageYears": 18, "valueY": 154.0 }
+      ]
+    },
+    {
+      "centile": "50",
+      "monotonic": "increasing",
+      "anchors": [
+        { "ageYears": 0, "valueY": 49.0 },
+        { "ageYears": 1, "valueY": 74.0 },
+        { "ageYears": 2, "valueY": 86.0 },
+        { "ageYears": 5, "valueY": 107.0 },
+        { "ageYears": 10, "valueY": 138.0 },
+        { "ageYears": 15, "valueY": 160.0 },
+        { "ageYears": 18, "valueY": 163.0 }
+      ]
+    },
+    {
+      "centile": "97",
+      "monotonic": "increasing",
+      "anchors": [
+        { "ageYears": 0, "valueY": 52.0 },
+        { "ageYears": 1, "valueY": 78.0 },
+        { "ageYears": 2, "valueY": 91.0 },
+        { "ageYears": 5, "valueY": 114.0 },
+        { "ageYears": 10, "valueY": 146.0 },
+        { "ageYears": 15, "valueY": 170.0 },
+        { "ageYears": 18, "valueY": 173.0 }
+      ]
+    }
+  ]
+}

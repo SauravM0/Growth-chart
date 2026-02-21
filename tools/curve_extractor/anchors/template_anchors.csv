@@ -1,0 +1,11 @@
+sex,imagePath,plotX,plotY,plotW,plotH,xMin,xMax,yMin,yMax,sampleStepYears
+M,../../../public/charts/boys_0_18.png,220,360,1800,2760,0,18,0,195,0.1
+3,increasing,0,47.5
+3,increasing,1,72.0
+3,increasing,2,83.0
+50,increasing,0,50.0
+50,increasing,1,75.0
+50,increasing,2,87.0
+97,increasing,0,53.0
+97,increasing,1,79.0
+97,increasing,2,92.0
