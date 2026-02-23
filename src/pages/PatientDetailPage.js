@@ -30,7 +30,7 @@ import {
 } from '../services/patientService';
 import { getAppSetting, setAppSetting } from '../services/settingsService';
 import { computeMPH, computeWarnings } from '../utils/derived';
-import { getPatientAnalytics } from '../utils/growthAnalytics';
+import { buildPatientSnapshot, getPatientAnalytics } from '../utils/growthAnalytics';
 
 const RECENT_PATIENTS_KEY = 'growth.recentPatients';
 const NOTES_PREFIX = 'patient.notes.';
@@ -60,6 +60,16 @@ function ToggleRow({ label, checked, onChange }) {
   );
 }
 
+function summarizeExclusionReasons(excluded) {
+  const counts = new Map();
+  for (const item of excluded || []) {
+    for (const reason of item.reasons || []) {
+      counts.set(reason, (counts.get(reason) || 0) + 1);
+    }
+  }
+  return [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+}
+
 function PatientDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -74,6 +84,8 @@ function PatientDetailPage() {
   const [showPrintPreview, setShowPrintPreview] = useState(false);
   const [notes, setNotes] = useState('');
   const [auditWarning, setAuditWarning] = useState('');
+  const [plotDiagnostics, setPlotDiagnostics] = useState(null);
+  const [showPlotDiagnosticsDetails, setShowPlotDiagnosticsDetails] = useState(false);
 
   const loadData = useCallback(async () => {
     try {
@@ -152,8 +164,9 @@ function PatientDetailPage() {
 
   const handleAddMeasurement = async (payload) => {
     const result = await createMeasurement(id, payload, patient?.dobISO || '');
-    setAuditWarning(result.warnings?.join(' ') || '');
+    setAuditWarning('');
     await refreshMeasurements();
+    return result;
   };
 
   const handleSaveMeasurement = async (measurementId, payload) => {
@@ -259,11 +272,19 @@ function PatientDetailPage() {
       }),
     [patient, measurements, selectedDataset, mphCm]
   );
+  const patientSnapshot = useMemo(
+    () => buildPatientSnapshot(patient || {}, measurements, selectedDataset),
+    [patient, measurements, selectedDataset]
+  );
 
   const combinedIapLabel = patient?.sex === 'M'
     ? 'Boys 0–18 Combined (WHO2006+IAP2015)'
     : 'Girls 0–18 Combined (WHO2006+IAP2015)';
   const isCombinedIapMode = VIEW_MODES.has(COMBINED_IAP_MODE);
+  const plotReasonSummary = useMemo(
+    () => summarizeExclusionReasons(plotDiagnostics?.excluded || []),
+    [plotDiagnostics]
+  );
 
   const topBar = (
     <div className="no-print mb-4 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-zinc-200 bg-zinc-50 p-3">
@@ -354,12 +375,59 @@ function PatientDetailPage() {
         </div>
 
         <div className={`w-full rounded-lg border p-2 ${chartTheme.wrapperClassName}`}>
+          {measurements.length > 0 && plotDiagnostics && (
+            <div className="no-print mb-3 rounded-md border border-zinc-200 bg-white/90 px-3 py-2 text-sm text-zinc-800">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p>
+                  {`Plotted: ${plotDiagnostics.summary.included}/${plotDiagnostics.summary.total} points`}
+                  {plotDiagnostics.summary.excluded > 0 && (
+                    <>
+                      {' '}
+                      {`• Excluded: ${plotDiagnostics.summary.excluded}`}
+                      {plotReasonSummary.length > 0 && ` (${plotReasonSummary[0][0]})`}
+                    </>
+                  )}
+                </p>
+                {plotDiagnostics.summary.excluded > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => setShowPlotDiagnosticsDetails((prev) => !prev)}
+                    className="text-sm font-medium text-zinc-700 underline underline-offset-2 hover:text-zinc-900"
+                  >
+                    {showPlotDiagnosticsDetails ? 'Hide details' : 'Show details'}
+                  </button>
+                )}
+              </div>
+              {showPlotDiagnosticsDetails && plotDiagnostics.summary.excluded > 0 && (
+                <ul className="mt-2 space-y-1 text-sm text-zinc-700">
+                  {plotDiagnostics.excluded.map((item, index) => (
+                    <li
+                      key={`${item.measurementId || 'measurement'}-${item.dateISO || 'no-date'}-${index}`}
+                      className="rounded border border-zinc-200 bg-zinc-50 px-2 py-1"
+                    >
+                      <span className="font-medium">
+                        {item.dateISO || 'Unknown date'}
+                      </span>
+                      {item.measurementId ? ` (${item.measurementId})` : ''}
+                      {`: ${item.reasons.join('; ')}`}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {plotDiagnostics.axisAutoExtended && (
+                <p className="mt-2 text-xs font-medium text-emerald-800">
+                  {`Axis auto-extended to show patient measurement(s) (${plotDiagnostics.defaultAxisYMax} -> ${plotDiagnostics.effectiveAxisYMax}).`}
+                </p>
+              )}
+            </div>
+          )}
           <div className="chart-stage mx-auto w-full">
             <CombinedIapChart
               sex={patient?.sex}
               measurements={measurements}
               dobISO={patient?.dobISO}
               showValues={showCombinedValues}
+              onDiagnostics={setPlotDiagnostics}
               className="w-full"
             />
           </div>
@@ -431,7 +499,7 @@ function PatientDetailPage() {
   return (
     <section>
       {topBar}
-      <PatientHeader patient={patient} mphCm={mphCm} analytics={analytics} />
+      <PatientHeader patient={patient} mphCm={mphCm} analytics={analytics} snapshot={patientSnapshot} />
       <section className="no-print mb-4 rounded-lg border border-amber-300 bg-amber-50 p-3">
         <h3 className="text-sm font-semibold text-amber-900">Warnings</h3>
         {derivedWarnings.length === 0 ? (

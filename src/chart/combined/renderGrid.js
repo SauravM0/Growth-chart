@@ -41,6 +41,16 @@ function mapY(value, rect, yMin, yMax) {
   return rect.y + rect.h - ((value - yMin) / (yMax - yMin)) * rect.h;
 }
 
+function formatTick(value) {
+  if (!Number.isFinite(value)) {
+    return '';
+  }
+  if (Math.abs(value - Math.round(value)) < 0.0001) {
+    return String(Math.round(value));
+  }
+  return String(round(value, 1));
+}
+
 export function buildGridModel(spec) {
   const { mainPlot: rect, axis } = spec;
 
@@ -75,15 +85,15 @@ export function buildGridModel(spec) {
   });
 
   const xMajorLabels = xMajorValues.map((value) => ({
-    value,
+    value: formatTick(value),
     x: mapX(value, rect, axis.xMin, axis.xMax),
-    y: rect.y + rect.h + 40,
+    y: rect.y + rect.h + 34,
   }));
 
   const yMajorLabels = yMajorValues.map((value) => ({
-    value,
-    x: rect.x - 16,
-    y: mapY(value, rect, axis.yMin, axis.yMax) + 6,
+    value: formatTick(value),
+    x: rect.x - 14,
+    y: mapY(value, rect, axis.yMin, axis.yMax) + 5,
   }));
 
   return {

@@ -1,3 +1,5 @@
+import { curveMonotoneX, line } from 'd3-shape';
+
 const X_MIN = 110;
 const X_MAX = 190;
 const Y_MIN = 20;
@@ -54,16 +56,23 @@ function mapY(value, rect) {
 }
 
 function toPath(points, plotRect) {
-  if (!points || points.length < 2) {
+  const usable = (points || [])
+    .filter((point) => Number.isFinite(point?.x) && Number.isFinite(point?.y))
+    .map((point) => ({
+      x: mapX(point.x, plotRect),
+      y: mapY(point.y, plotRect),
+    }));
+
+  if (usable.length < 2) {
     return '';
   }
-  return points
-    .map((point, index) => {
-      const x = mapX(point.x, plotRect);
-      const y = mapY(point.y, plotRect);
-      return `${index === 0 ? 'M' : 'L'}${x.toFixed(2)},${y.toFixed(2)}`;
-    })
-    .join(' ');
+
+  const generator = line()
+    .x((d) => d.x)
+    .y((d) => d.y)
+    .curve(curveMonotoneX);
+
+  return generator(usable) || '';
 }
 
 export function buildBmiInsetModel(spec, sex) {

@@ -1,3 +1,5 @@
+import { curveMonotoneX, line } from 'd3-shape';
+
 const LABEL_ORDER = ['97', '90', '75', '50', '25', '10', '3'];
 
 const BOYS_WEIGHT_ANCHORS = {
@@ -19,6 +21,11 @@ const GIRLS_WEIGHT_ANCHORS = {
   '90': [[0, 4.1], [1, 12.6], [2, 15.8], [5, 19.6], [10, 35.0], [14, 53.0], [18, 66.0]],
   '97': [[0, 4.5], [1, 13.5], [2, 17.0], [5, 21.0], [10, 40.0], [14, 60.0], [18, 74.0]],
 };
+
+const RIGHT_LABEL_GAP_X = 6;
+const HEIGHT_LABEL_MIN_GAP = 26;
+const WEIGHT_LABEL_MIN_GAP = 22;
+const LABEL_BASELINE_OFFSET = 4;
 
 function mapX(value, spec) {
   const { xMin, xMax } = spec.axis;
@@ -58,7 +65,12 @@ function curvePath(points, spec) {
     return '';
   }
 
-  return usable.map((point, index) => `${index === 0 ? 'M' : 'L'}${point.x.toFixed(2)},${point.y.toFixed(2)}`).join(' ');
+  const generator = line()
+    .x((d) => d.x)
+    .y((d) => d.y)
+    .curve(curveMonotoneX);
+
+  return generator(usable) || '';
 }
 
 function valueAtAge(points, targetAge) {
@@ -88,8 +100,128 @@ function valueAtAge(points, targetAge) {
   return null;
 }
 
+function densifySeries(points, stepYears = 0.1, minAgeOverride, maxAgeOverride) {
+  if (!points || points.length < 2) {
+    return points || [];
+  }
+
+  const sorted = points
+    .filter((point) => Number.isFinite(point?.ageYears) && Number.isFinite(point?.valueY))
+    .slice()
+    .sort((a, b) => a.ageYears - b.ageYears);
+
+  if (sorted.length < 2) {
+    return sorted;
+  }
+
+  const minAge = Number.isFinite(minAgeOverride) ? minAgeOverride : sorted[0].ageYears;
+  const maxAge = Number.isFinite(maxAgeOverride) ? maxAgeOverride : sorted[sorted.length - 1].ageYears;
+  if (maxAge < minAge) {
+    return [];
+  }
+
+  const out = [];
+  for (let age = minAge; age <= maxAge + 1e-9; age += stepYears) {
+    const clampedAge = Math.min(age, maxAge);
+    const valueY = valueAtAge(sorted, clampedAge);
+    if (valueY != null && Number.isFinite(valueY)) {
+      out.push({ ageYears: clampedAge, valueY });
+    }
+  }
+
+  const endValue = valueAtAge(sorted, maxAge);
+  if (
+    endValue != null &&
+    Number.isFinite(endValue) &&
+    (out.length === 0 || Math.abs(out[out.length - 1].ageYears - maxAge) > 1e-9)
+  ) {
+    out.push({ ageYears: maxAge, valueY: endValue });
+  }
+
+  return out;
+}
+
+function densifyAdaptive(points) {
+  if (!points || points.length < 2) {
+    return points || [];
+  }
+
+  const sorted = points.slice().sort((a, b) => a.ageYears - b.ageYears);
+  const minAge = sorted[0].ageYears;
+  const maxAge = sorted[sorted.length - 1].ageYears;
+  if (!Number.isFinite(minAge) || !Number.isFinite(maxAge) || maxAge <= minAge) {
+    return sorted;
+  }
+
+  const infancyEnd = Math.min(2, maxAge);
+  const early = densifySeries(sorted, 0.05, minAge, infancyEnd);
+  if (maxAge <= 2) {
+    return early;
+  }
+
+  const later = densifySeries(sorted, 0.1, Math.max(2, minAge), maxAge);
+  if (!early.length) {
+    return later;
+  }
+  if (!later.length) {
+    return early;
+  }
+  if (Math.abs(early[early.length - 1].ageYears - later[0].ageYears) < 1e-9) {
+    later.shift();
+  }
+  return early.concat(later);
+}
+
 function anchorsToSeries(anchors) {
   return (anchors || []).map(([ageYears, valueY]) => ({ ageYears, valueY }));
+}
+
+function getSeriesEndpoint(points) {
+  const usable = (points || []).filter(
+    (point) => Number.isFinite(point?.ageYears) && Number.isFinite(point?.valueY)
+  );
+  if (!usable.length) {
+    return null;
+  }
+
+  let end = usable[0];
+  for (const point of usable) {
+    if (point.ageYears > end.ageYears) {
+      end = point;
+    }
+  }
+  return end;
+}
+
+function resolveLabelCollisions(labels, minGap, spec) {
+  if (!Array.isArray(labels) || labels.length < 2) {
+    return labels || [];
+  }
+
+  const top = spec.mainPlot.y + 12;
+  const bottom = spec.mainPlot.y + spec.mainPlot.h - 8;
+  const sorted = labels
+    .map((label, index) => ({ ...label, _index: index }))
+    .sort((a, b) => a.y - b.y);
+
+  sorted[0].y = Math.max(sorted[0].y, top);
+  for (let index = 1; index < sorted.length; index += 1) {
+    sorted[index].y = Math.max(sorted[index].y, sorted[index - 1].y + minGap);
+  }
+
+  sorted[sorted.length - 1].y = Math.min(sorted[sorted.length - 1].y, bottom);
+  for (let index = sorted.length - 2; index >= 0; index -= 1) {
+    sorted[index].y = Math.min(sorted[index].y, sorted[index + 1].y - minGap);
+  }
+
+  sorted[0].y = Math.max(sorted[0].y, top);
+
+  const restored = new Array(sorted.length);
+  for (const label of sorted) {
+    const { _index, ...clean } = label;
+    restored[_index] = clean;
+  }
+  return restored;
 }
 
 export function buildCurvesModel(spec, curves, sex = 'F') {
@@ -99,7 +231,8 @@ export function buildCurvesModel(spec, curves, sex = 'F') {
   const strokes = [];
   for (const centile of LABEL_ORDER.slice().reverse()) {
     const heightPoints = heightMap.get(centile) || [];
-    const heightPath = curvePath(heightPoints, spec);
+    const denseHeight = densifyAdaptive(heightPoints);
+    const heightPath = curvePath(denseHeight, spec);
     if (heightPath) {
       strokes.push({
         id: `height-${centile}`,
@@ -111,7 +244,8 @@ export function buildCurvesModel(spec, curves, sex = 'F') {
     }
 
     const weightPoints = anchorsToSeries(weightAnchorMap[centile] || []);
-    const weightPath = curvePath(weightPoints, spec);
+    const denseWeight = densifyAdaptive(weightPoints);
+    const weightPath = curvePath(denseWeight, spec);
     if (weightPath) {
       strokes.push({
         id: `weight-${centile}`,
@@ -123,28 +257,35 @@ export function buildCurvesModel(spec, curves, sex = 'F') {
     }
   }
 
-  const labelAge = spec.axis.xMax;
-  const labelX = spec.mainPlot.x + spec.mainPlot.w + 10;
+  const fallbackLabelX = spec.mainPlot.x + spec.mainPlot.w + 8;
 
-  const heightLabels = LABEL_ORDER.map((centile) => {
+  const heightLabelsRaw = LABEL_ORDER.map((centile) => {
     const points = heightMap.get(centile) || [];
-    const yValue = valueAtAge(points, labelAge);
+    const endpoint = getSeriesEndpoint(points);
+    const yValue = endpoint ? endpoint.valueY : valueAtAge(points, spec.axis.xMax);
     return {
       centile,
-      x: labelX,
-      y: yValue === null ? spec.mainPlot.y + 30 : mapY(yValue, spec) + 4,
+      x: endpoint ? mapX(endpoint.ageYears, spec) + RIGHT_LABEL_GAP_X : fallbackLabelX,
+      y: yValue === null ? spec.mainPlot.y + 30 : mapY(yValue, spec) + LABEL_BASELINE_OFFSET,
     };
   });
 
-  const weightLabels = LABEL_ORDER.map((centile) => {
+  const weightLabelsRaw = LABEL_ORDER.map((centile) => {
     const points = anchorsToSeries(weightAnchorMap[centile] || []);
-    const yValue = valueAtAge(points, labelAge);
+    const endpoint = getSeriesEndpoint(points);
+    const yValue = endpoint ? endpoint.valueY : valueAtAge(points, spec.axis.xMax);
     return {
       centile,
-      x: labelX,
-      y: yValue === null ? spec.mainPlot.y + spec.mainPlot.h - 20 : mapY(yValue, spec) + 4,
+      x: endpoint ? mapX(endpoint.ageYears, spec) + RIGHT_LABEL_GAP_X : fallbackLabelX,
+      y:
+        yValue === null
+          ? spec.mainPlot.y + spec.mainPlot.h - 20
+          : mapY(yValue, spec) + LABEL_BASELINE_OFFSET,
     };
   });
+
+  const heightLabels = resolveLabelCollisions(heightLabelsRaw, HEIGHT_LABEL_MIN_GAP, spec);
+  const weightLabels = resolveLabelCollisions(weightLabelsRaw, WEIGHT_LABEL_MIN_GAP, spec);
 
   const redHeight = heightLabels.find((row) => row.centile === '3') || null;
   const shortLineCallout = redHeight

@@ -1,6 +1,8 @@
 import React, { useEffect, useId, useMemo, useState } from 'react';
 import { prepareMeasurementPoints } from './points';
 
+// Legacy image-overlay chart renderer kept only for the old print pipeline (PrintView).
+// Active combined chart rendering is data-driven in src/chart/combined/* and does not use template images.
 const DEFAULT_TEMPLATE_DIMENSIONS = {
   width: 2480,
   height: 3508,

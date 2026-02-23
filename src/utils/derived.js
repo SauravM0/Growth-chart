@@ -50,21 +50,17 @@ export function computeMPH(sex, motherHeightCm, fatherHeightCm) {
   return base - 6.5;
 }
 
-export function computeVelocity(prev, next) {
+export function computeVelocity(prev, next, dobISO) {
   if (!prev || !next || !isFiniteNumber(prev.heightCm) || !isFiniteNumber(next.heightCm)) {
     return null;
   }
 
   const prevTimeYears = isFiniteNumber(prev.ageYears)
     ? prev.ageYears
-    : isFiniteNumber(toDateMs(prev.dateISO))
-      ? toDateMs(prev.dateISO) / MS_PER_YEAR
-      : null;
+    : computeAgeYears(dobISO, prev.dateISO);
   const nextTimeYears = isFiniteNumber(next.ageYears)
     ? next.ageYears
-    : isFiniteNumber(toDateMs(next.dateISO))
-      ? toDateMs(next.dateISO) / MS_PER_YEAR
-      : null;
+    : computeAgeYears(dobISO, next.dateISO);
 
   if (!isFiniteNumber(prevTimeYears) || !isFiniteNumber(nextTimeYears) || nextTimeYears <= prevTimeYears) {
     return null;
@@ -143,7 +139,7 @@ export function computeWarnings(patient, measurements = []) {
           [prev.id, next.id]
         );
       }
-      const velocity = computeVelocity(prev, next);
+      const velocity = computeVelocity(prev, next, dobISO);
       if (isFiniteNumber(velocity) && (velocity > 20 || velocity < -2)) {
         addWarning(
           'height_velocity',

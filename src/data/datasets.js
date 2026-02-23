@@ -12,7 +12,8 @@ export function getDatasetById(datasetId) {
 }
 
 export function getDefaultDatasetIdForSex(sex) {
-  if (sex === 'M') {
+  const normalizedSex = String(sex || '').trim().toUpperCase();
+  if (normalizedSex === 'M') {
     return 'demo-boys-0-18';
   }
   return 'demo-girls-0-18';

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { validateMeasurementInput } from '../utils/validate';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
@@ -19,6 +19,7 @@ function toNullableNumber(value) {
 }
 
 function MeasurementForm({ patientDobISO, onSubmit }) {
+  const heightInputRef = useRef(null);
   const [values, setValues] = useState({
     dateISO: getTodayISO(),
     heightCm: '',
@@ -31,6 +32,7 @@ function MeasurementForm({ patientDobISO, onSubmit }) {
   const [errors, setErrors] = useState({});
   const [warnings, setWarnings] = useState({});
   const [submitError, setSubmitError] = useState('');
+  const [saveSummary, setSaveSummary] = useState(null);
 
   const buildValidation = (nextValues) => {
     const payload = {
@@ -91,6 +93,7 @@ function MeasurementForm({ patientDobISO, onSubmit }) {
     setErrors(nextErrors);
     setWarnings(nextWarnings);
     setSubmitError('');
+    setSaveSummary(null);
   };
 
   const handleSubmit = async (event) => {
@@ -100,13 +103,31 @@ function MeasurementForm({ patientDobISO, onSubmit }) {
       setErrors(nextErrors);
       setWarnings(nextWarnings);
       setSubmitError(validation.errors.join(' '));
+      setSaveSummary(null);
       return;
     }
 
     setErrors({});
     setWarnings(nextWarnings);
 
-    await onSubmit(payload);
+    const result = await onSubmit(payload);
+    const warningList = Array.isArray(result?.warnings) ? result.warnings : validation.warnings;
+    const fallbackFilled = [
+      values.dateISO,
+      values.heightCm,
+      values.weightKg,
+      values.astUPerL,
+      values.altUPerL,
+      values.platelets10e9PerL,
+      values.creatinineMgDl,
+    ].filter((value) => String(value ?? '').trim() !== '').length;
+    setSaveSummary({
+      title: 'Saved',
+      detected: result?.fieldSummary?.detected ?? 7,
+      filled: result?.fieldSummary?.filled ?? fallbackFilled,
+      needsReview: result?.fieldSummary?.needsReview ?? warningList.length,
+      warnings: warningList,
+    });
 
     setValues({
       dateISO: getTodayISO(),
@@ -117,6 +138,18 @@ function MeasurementForm({ patientDobISO, onSubmit }) {
       platelets10e9PerL: '',
       creatinineMgDl: '',
     });
+    setErrors({});
+    setWarnings({});
+    setSubmitError('');
+    const refocus = () => {
+      heightInputRef.current?.focus();
+      heightInputRef.current?.select?.();
+    };
+    if (typeof window !== 'undefined' && typeof window.requestAnimationFrame === 'function') {
+      window.requestAnimationFrame(refocus);
+    } else {
+      refocus();
+    }
   };
 
   return (
@@ -127,19 +160,50 @@ function MeasurementForm({ patientDobISO, onSubmit }) {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
+          {saveSummary && (
+            <div className="rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-900">
+              <p className="font-semibold">{saveSummary.title}</p>
+              <p className="mt-1">
+                {`Fields detected: ${saveSummary.detected} • Filled: ${saveSummary.filled} • Needs review: ${saveSummary.needsReview}`}
+              </p>
+              {saveSummary.warnings.length > 0 && (
+                <details className="mt-2">
+                  <summary className="cursor-pointer text-xs font-medium text-emerald-900">
+                    View review reasons
+                  </summary>
+                  <ul className="mt-1 list-disc space-y-1 pl-4 text-xs text-emerald-900">
+                    {saveSummary.warnings.map((warning, index) => (
+                      <li key={`${warning}-${index}`}>{warning}</li>
+                    ))}
+                  </ul>
+                </details>
+              )}
+              <p className="mt-2 text-xs text-emerald-900/90">
+                Privacy: Data stays on this device unless exported. Avoid storing identifiable data if you&apos;re using a shared device.
+              </p>
+            </div>
+          )}
           {submitError && (
             <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{submitError}</div>
           )}
           <div className="grid gap-4 md:grid-cols-4">
             <label className="text-sm text-zinc-700">
               Date
-              <Input type="date" value={values.dateISO} onChange={handleChange('dateISO')} className="mt-1" autoFocus />
+              <Input type="date" value={values.dateISO} onChange={handleChange('dateISO')} className="mt-1" />
               {errors.dateISO && <span className="mt-1 block text-xs text-red-700">{errors.dateISO}</span>}
             </label>
 
             <label className="text-sm text-zinc-700">
               Height (cm)
-              <Input type="number" step="0.1" value={values.heightCm} onChange={handleChange('heightCm')} className="mt-1" />
+              <Input
+                ref={heightInputRef}
+                type="number"
+                step="0.1"
+                value={values.heightCm}
+                onChange={handleChange('heightCm')}
+                className="mt-1"
+                autoFocus
+              />
               {errors.heightCm && <span className="mt-1 block text-xs text-red-700">{errors.heightCm}</span>}
               {warnings.heightCm && <span className="mt-1 block text-xs text-red-700">{warnings.heightCm}</span>}
             </label>

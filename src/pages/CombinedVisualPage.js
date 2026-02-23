@@ -17,7 +17,7 @@ function CombinedVisualPage() {
       }}
     >
       <div data-testid="combined-visual-canvas" style={{ width: '1100px', margin: '0 auto' }}>
-        <CombinedIapChart sex={sex} calibrationImageVisible={false} className="w-full" />
+        <CombinedIapChart sex={sex} className="w-full" />
       </div>
     </section>
   );

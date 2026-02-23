@@ -1,11 +1,9 @@
-export const CALIBRATION_MODE = (process.env.REACT_APP_CALIBRATION_MODE || '').trim().toLowerCase() === 'true';
-
 const BASE_LAYOUT = {
   canvas: { width: 2480, height: 3508 },
   titleBar: { x: 80, y: 84, w: 2320, h: 208 },
   mainPlot: { x: 220, y: 360, w: 1800, h: 2760 },
   bmiInset: { x: 240, y: 390, w: 520, h: 520 },
-  mphTable: { x: 2060, y: 360, w: 340, h: 1760 },
+  mphTable: { x: 2064, y: 360, w: 336, h: 1760 },
   footer: { x: 120, y: 3208, w: 2240, h: 220 },
   axis: {
     xMin: 0,
@@ -28,12 +26,10 @@ const BASE_LAYOUT = {
 export const COMBINED_IAP_TEMPLATE = {
   M: {
     ...BASE_LAYOUT,
-    imagePath: '/charts/boys_0_18.png',
     backgroundColor: '#dbeeff',
   },
   F: {
     ...BASE_LAYOUT,
-    imagePath: '/charts/girls_0_18.png',
     backgroundColor: '#ffe1ec',
     axis: {
       ...BASE_LAYOUT.axis,
@@ -98,4 +94,28 @@ export function applyCombinedSpecOverrides(base, overrides) {
       yMajorStep: finiteOr(base.axis.yMajorStep, overrides.yMajorStep),
     },
   };
+}
+
+export function computeAutoExtendedAxisYMax(axis, measurementPoints = []) {
+  const defaultYMax = Number(axis?.yMax);
+  if (!Number.isFinite(defaultYMax)) {
+    return defaultYMax;
+  }
+
+  const observedMax = measurementPoints.reduce((maxValue, point) => {
+    const pointMax = Math.max(
+      Number.isFinite(point?.heightCm) ? point.heightCm : Number.NEGATIVE_INFINITY,
+      Number.isFinite(point?.weightKg) ? point.weightKg : Number.NEGATIVE_INFINITY
+    );
+    return Number.isFinite(pointMax) ? Math.max(maxValue, pointMax) : maxValue;
+  }, defaultYMax);
+
+  if (observedMax <= defaultYMax) {
+    return defaultYMax;
+  }
+
+  const majorStep = Number.isFinite(axis?.yMajorStep) && axis.yMajorStep > 0 ? axis.yMajorStep : 5;
+  const padding = Math.max(majorStep, 5);
+  const paddedMax = observedMax + padding;
+  return Math.ceil(paddedMax / majorStep) * majorStep;
 }

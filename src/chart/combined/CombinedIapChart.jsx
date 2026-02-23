@@ -1,10 +1,10 @@
-import React, { useMemo } from 'react';
-import { CALIBRATION_MODE, applyCombinedSpecOverrides, resolveCombinedSpec } from './spec';
+import React, { useEffect, useMemo } from 'react';
+import { applyCombinedSpecOverrides, computeAutoExtendedAxisYMax, resolveCombinedSpec } from './spec';
 import { buildGridModel } from './renderGrid';
 import { buildCurvesModel } from './renderCurves';
 import { buildBmiInsetModel } from './renderBmiInset';
 import { buildMphTableModel } from './renderMphTable';
-import { prepareMeasurementPoints } from '../points';
+import { explainMeasurementExclusions, prepareMeasurementPoints } from '../points';
 import boysCombinedCurves from '../../data/combined/boys_combined_curves.json';
 import girlsCombinedCurves from '../../data/combined/girls_combined_curves.json';
 
@@ -74,50 +74,84 @@ function CombinedIapChart({
   measurements = [],
   dobISO = '',
   showValues = false,
-  calibrationImageVisible = null,
   specOverrides = null,
   className = '',
+  onDiagnostics = null,
 }) {
   const baseSpec = useMemo(() => resolveCombinedSpec(sex), [sex]);
   const spec = useMemo(
     () => applyCombinedSpecOverrides(baseSpec, specOverrides || undefined),
     [baseSpec, specOverrides]
   );
-  const showCalibrationImage = calibrationImageVisible === null
-    ? CALIBRATION_MODE
-    : Boolean(calibrationImageVisible);
   const debugEnabled = isDebugOverlayEnabled();
-  const grid = useMemo(() => buildGridModel(spec), [spec]);
   const extractedCurves = sex === 'M' ? boysCombinedCurves : girlsCombinedCurves;
-  const curves = useMemo(() => buildCurvesModel(spec, extractedCurves, sex), [spec, extractedCurves, sex]);
-  const bmiInset = useMemo(() => buildBmiInsetModel(spec, sex), [spec, sex]);
-  const mphTable = useMemo(() => buildMphTableModel(spec), [spec]);
   const measurementPoints = useMemo(
     () => (dobISO ? prepareMeasurementPoints(measurements, dobISO) : []),
     [measurements, dobISO]
   );
+  const effectiveAxisYMax = useMemo(
+    () => computeAutoExtendedAxisYMax(spec.axis, measurementPoints),
+    [spec.axis, measurementPoints]
+  );
+  const effectiveSpec = useMemo(() => {
+    if (!Number.isFinite(effectiveAxisYMax) || effectiveAxisYMax === spec.axis.yMax) {
+      return spec;
+    }
+    return {
+      ...spec,
+      axis: {
+        ...spec.axis,
+        yMax: effectiveAxisYMax,
+      },
+    };
+  }, [spec, effectiveAxisYMax]);
+  const axisAutoExtended = effectiveSpec.axis.yMax > spec.axis.yMax;
+  const grid = useMemo(() => buildGridModel(effectiveSpec), [effectiveSpec]);
+  const curves = useMemo(
+    () => buildCurvesModel(effectiveSpec, extractedCurves, sex),
+    [effectiveSpec, extractedCurves, sex]
+  );
+  const bmiInset = useMemo(() => buildBmiInsetModel(effectiveSpec, sex), [effectiveSpec, sex]);
+  const mphTable = useMemo(() => buildMphTableModel(effectiveSpec), [effectiveSpec]);
+  const plotDiagnostics = useMemo(
+    () => {
+      const diagnostics = explainMeasurementExclusions(measurements, dobISO, effectiveSpec.axis);
+      return {
+        ...diagnostics,
+        axisAutoExtended,
+        defaultAxisYMax: spec.axis.yMax,
+        effectiveAxisYMax: effectiveSpec.axis.yMax,
+      };
+    },
+    [measurements, dobISO, effectiveSpec.axis, axisAutoExtended, spec.axis.yMax, effectiveSpec.axis.yMax]
+  );
+  useEffect(() => {
+    if (typeof onDiagnostics === 'function') {
+      onDiagnostics(plotDiagnostics);
+    }
+  }, [onDiagnostics, plotDiagnostics]);
   const heightPoints = useMemo(
     () =>
       measurementPoints.filter(
         (point) =>
           Number.isFinite(point.heightCm) &&
-          point.heightCm >= spec.axis.yMin &&
-          point.heightCm <= spec.axis.yMax
+          point.heightCm >= effectiveSpec.axis.yMin &&
+          point.heightCm <= effectiveSpec.axis.yMax
       ),
-    [measurementPoints, spec.axis.yMax, spec.axis.yMin]
+    [measurementPoints, effectiveSpec.axis.yMax, effectiveSpec.axis.yMin]
   );
   const weightPoints = useMemo(
     () =>
       measurementPoints.filter(
         (point) =>
           Number.isFinite(point.weightKg) &&
-          point.weightKg >= spec.axis.yMin &&
-          point.weightKg <= spec.axis.yMax
+          point.weightKg >= effectiveSpec.axis.yMin &&
+          point.weightKg <= effectiveSpec.axis.yMax
       ),
-    [measurementPoints, spec.axis.yMax, spec.axis.yMin]
+    [measurementPoints, effectiveSpec.axis.yMax, effectiveSpec.axis.yMin]
   );
-  const heightPath = useMemo(() => pointsToPath(heightPoints, 'heightCm', spec), [heightPoints, spec]);
-  const weightPath = useMemo(() => pointsToPath(weightPoints, 'weightKg', spec), [weightPoints, spec]);
+  const heightPath = useMemo(() => pointsToPath(heightPoints, 'heightCm', effectiveSpec), [heightPoints, effectiveSpec]);
+  const weightPath = useMemo(() => pointsToPath(weightPoints, 'weightKg', effectiveSpec), [weightPoints, effectiveSpec]);
   const titleText = sex === 'M'
     ? 'WHO 2006 & IAP 2015 combined Boys Charts 0-18 Years'
     : 'WHO 2006 & IAP 2015 combined Girls Charts 0-18 Years';
@@ -133,17 +167,6 @@ function CombinedIapChart({
       className={className}
     >
       <rect x="0" y="0" width={spec.canvas.width} height={spec.canvas.height} fill={spec.backgroundColor} />
-      {showCalibrationImage && (
-        <image
-          href={spec.imagePath}
-          x="0"
-          y="0"
-          width={spec.canvas.width}
-          height={spec.canvas.height}
-          preserveAspectRatio="none"
-        />
-      )}
-
       <g id="title-bar">
         <rect
           x={spec.titleBar.x}
@@ -257,8 +280,8 @@ function CombinedIapChart({
         )}
 
         {heightPoints.map((point) => {
-          const x = mapAgeToPlotX(point.ageYears, spec);
-          const y = mapValueToPlotY(point.heightCm, spec);
+          const x = mapAgeToPlotX(point.ageYears, effectiveSpec);
+          const y = mapValueToPlotY(point.heightCm, effectiveSpec);
           return (
             <g key={`height-marker-${point.id || `${point.dateISO}-${point.ageYears}`}`}>
               <circle
@@ -286,8 +309,8 @@ function CombinedIapChart({
         })}
 
         {weightPoints.map((point) => {
-          const x = mapAgeToPlotX(point.ageYears, spec);
-          const y = mapValueToPlotY(point.weightKg, spec);
+          const x = mapAgeToPlotX(point.ageYears, effectiveSpec);
+          const y = mapValueToPlotY(point.weightKg, effectiveSpec);
           return (
             <g key={`weight-marker-${point.id || `${point.dateISO}-${point.ageYears}`}`}>
               <circle

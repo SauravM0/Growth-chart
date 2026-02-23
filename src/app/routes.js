@@ -4,11 +4,9 @@ import AppShell from './AppShell';
 import PatientsPage from '../pages/PatientsPage';
 import PatientDetailPage from '../pages/PatientDetailPage';
 import CombinedVisualPage from '../pages/CombinedVisualPage';
-import CombinedCalibrationPage from '../pages/CombinedCalibrationPage';
 
 const router = createBrowserRouter([
   { path: '/visual/combined', element: <CombinedVisualPage /> },
-  { path: '/calibration/combined', element: <CombinedCalibrationPage /> },
   {
     path: '/',
     element: <AppShell />,

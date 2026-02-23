@@ -8,6 +8,12 @@ const CENTILE_BY_FATHER = {
   187: '97th',
 };
 
+const PAD_X = 10;
+const PAD_Y = 8;
+const HEADER_H = 68;
+const BASELINE = 4;
+const SVG_TEXT_Y_OFFSET = 4;
+
 export function buildMphTableModel(spec) {
   const frameRect = {
     x: spec.mphTable.x,
@@ -17,24 +23,24 @@ export function buildMphTableModel(spec) {
   };
 
   const headerRect = {
-    x: frameRect.x,
-    y: frameRect.y,
-    w: frameRect.w,
-    h: 74,
+    x: frameRect.x + PAD_X,
+    y: frameRect.y + PAD_Y,
+    w: frameRect.w - PAD_X * 2,
+    h: HEADER_H,
   };
 
   const gridRect = {
-    x: frameRect.x,
-    y: headerRect.y + headerRect.h,
-    w: frameRect.w,
-    h: frameRect.h - headerRect.h,
+    x: frameRect.x + PAD_X,
+    y: headerRect.y + headerRect.h + PAD_Y,
+    w: frameRect.w - PAD_X * 2,
+    h: frameRect.h - headerRect.h - PAD_Y * 3,
   };
 
-  const fatherX = gridRect.x + gridRect.w * 0.18;
-  const centileX = gridRect.x + gridRect.w * 0.5;
+  const fatherX = gridRect.x + gridRect.w * 0.22;
+  const centileX = gridRect.x + gridRect.w * 0.52;
   const motherX = gridRect.x + gridRect.w * 0.82;
 
-  const dividerLeft = gridRect.x + gridRect.w * 0.34;
+  const dividerLeft = gridRect.x + gridRect.w * 0.38;
   const dividerRight = gridRect.x + gridRect.w * 0.66;
 
   const fatherStart = 150;
@@ -50,7 +56,7 @@ export function buildMphTableModel(spec) {
       fatherHeight,
       motherHeight,
       centile: CENTILE_BY_FATHER[fatherHeight] || '',
-      y: gridRect.y + (index + 0.5) * rowHeight,
+      y: gridRect.y + (index + 1) * rowHeight - BASELINE - SVG_TEXT_Y_OFFSET,
     });
   }
 

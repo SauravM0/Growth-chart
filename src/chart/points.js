@@ -1,7 +1,7 @@
 import { line, curveMonotoneX } from 'd3-shape';
-import { measurementAgeYears, prepareMeasurementPoints } from './measurementUtils';
+import { explainMeasurementExclusions, measurementAgeYears, prepareMeasurementPoints } from './measurementUtils';
 
-export { measurementAgeYears, prepareMeasurementPoints };
+export { explainMeasurementExclusions, measurementAgeYears, prepareMeasurementPoints };
 
 export function getPointsPath(points, xScale, yScale, valueKey) {
   const filtered = points.filter((point) => Number.isFinite(point[valueKey]));

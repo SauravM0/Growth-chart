@@ -151,7 +151,9 @@ function MeasurementsTable({ measurements, patientDobISO, patientSex, onDelete, 
             const ageYears = computeAgeYears(patientDobISO, measurement.dateISO);
             const bmiValue = computeBMI(measurement.heightCm, measurement.weightKg);
             const bsaValue = computeBSA(measurement.heightCm, measurement.weightKg);
-            const heightVelocity = prevMeasurement ? computeVelocity(prevMeasurement, measurement) : null;
+            const heightVelocity = prevMeasurement
+              ? computeVelocity(prevMeasurement, measurement, patientDobISO)
+              : null;
             const fib4Value = calculateFib4Index(ageYears, measurement.astUPerL, measurement.altUPerL, measurement.platelets10e9PerL);
             const egfrValue =
               calculateCkdEpi2021Egfr(ageYears, patientSex, measurement.creatinineMgDl) ??

@@ -1,4 +1,5 @@
 import { measurementAgeYears } from '../chart/measurementUtils';
+import { computeAgeYears, computeBMI, computeMPH } from './derived';
 import {
   calculateBmi,
   calculateBsaMosteller,
@@ -282,6 +283,73 @@ export function getPatientAnalytics({ patient, measurements, dataset, mphCm }) {
     egfrMethod,
     fib4Risk: classifyFib4(fib4),
     egfrRisk: classifyEgfr(egfr),
+  };
+}
+
+function buildTargetRange(mph) {
+  if (typeof mph !== 'number') {
+    return null;
+  }
+  return {
+    minCm: mph - 8.5,
+    maxCm: mph + 8.5,
+  };
+}
+
+export function buildPatientSnapshot(patient, measurements, datasetForSex) {
+  const sorted = sortMeasurements(measurements);
+  const latestMeasurement = sorted[sorted.length - 1] || null;
+  const dobISO = patient?.dobISO || '';
+  const ageYears = latestMeasurement?.dateISO ? computeAgeYears(dobISO, latestMeasurement.dateISO) : null;
+
+  const latestHeightCm = safeNumber(latestMeasurement?.heightCm);
+  const latestWeightKg = safeNumber(latestMeasurement?.weightKg);
+  const bmi = computeBMI(latestHeightCm, latestWeightKg);
+
+  const mph = computeMPH(patient?.sex, patient?.motherHeightCm, patient?.fatherHeightCm);
+  const targetRange = buildTargetRange(mph);
+
+  const estimatedCentiles = {
+    height: estimateCentile(datasetForSex?.height, ageYears, latestHeightCm),
+    weight: estimateCentile(datasetForSex?.weight, ageYears, latestWeightKg),
+    bmi: estimateCentile(datasetForSex?.bmi, ageYears, bmi),
+  };
+
+  const alerts = [];
+  if (!dobISO) {
+    alerts.push('Add DOB to compute age and centiles');
+  }
+  if (!latestMeasurement) {
+    alerts.push('Add a measurement to compute age, BMI, and centiles');
+  }
+  if (latestMeasurement && (typeof latestHeightCm !== 'number' || typeof latestWeightKg !== 'number')) {
+    alerts.push('Add height/weight to compute BMI');
+  }
+  if (typeof safeNumber(patient?.motherHeightCm) !== 'number' || typeof safeNumber(patient?.fatherHeightCm) !== 'number') {
+    alerts.push('Add mother and father heights to compute MPH range');
+  }
+  if (!datasetForSex) {
+    alerts.push('Dataset unavailable for selected sex');
+  } else {
+    if (!datasetForSex.height) {
+      alerts.push('Height centile curves unavailable in dataset');
+    }
+    if (!datasetForSex.weight) {
+      alerts.push('Weight centile curves unavailable in dataset');
+    }
+    if (!datasetForSex.bmi) {
+      alerts.push('BMI centile curves unavailable in dataset');
+    }
+  }
+
+  return {
+    latestMeasurement,
+    ageYears,
+    bmi,
+    mph,
+    targetRange,
+    estimatedCentiles,
+    alerts,
   };
 }
 

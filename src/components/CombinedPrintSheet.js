@@ -10,7 +10,6 @@ function CombinedPrintSheet({ sex = '', measurements = [], dobISO = '' }) {
           measurements={measurements}
           dobISO={dobISO}
           showValues={false}
-          calibrationImageVisible={false}
           className="w-full"
         />
       </div>

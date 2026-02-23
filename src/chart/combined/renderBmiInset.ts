@@ -1,3 +1,4 @@
+import { curveMonotoneX, line } from 'd3-shape';
 import type { CombinedIapSpec, Rect } from './spec';
 
 type CurvePoint = {
@@ -89,16 +90,23 @@ function mapY(value: number, rect: Rect): number {
 }
 
 function toPath(points: CurvePoint[], plotRect: Rect): string {
-  if (!points || points.length < 2) {
+  const usable = (points || [])
+    .filter((point) => Number.isFinite(point?.x) && Number.isFinite(point?.y))
+    .map((point) => ({
+      x: mapX(point.x, plotRect),
+      y: mapY(point.y, plotRect),
+    }));
+
+  if (usable.length < 2) {
     return '';
   }
-  return points
-    .map((point, index) => {
-      const x = mapX(point.x, plotRect);
-      const y = mapY(point.y, plotRect);
-      return `${index === 0 ? 'M' : 'L'}${x.toFixed(2)},${y.toFixed(2)}`;
-    })
-    .join(' ');
+
+  const generator = line<{ x: number; y: number }>()
+    .x((d) => d.x)
+    .y((d) => d.y)
+    .curve(curveMonotoneX);
+
+  return generator(usable) || '';
 }
 
 export function buildBmiInsetModel(spec: CombinedIapSpec, sex: string): BmiInsetModel {

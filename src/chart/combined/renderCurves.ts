@@ -1,3 +1,4 @@
+import { curveMonotoneX, line } from 'd3-shape';
 import type { CombinedIapSpec } from './spec';
 
 type CurvePoint = {
@@ -95,7 +96,12 @@ function curvePath(points: CurvePoint[], spec: CombinedIapSpec): string {
     return '';
   }
 
-  return usable.map((point, index) => `${index === 0 ? 'M' : 'L'}${point.x.toFixed(2)},${point.y.toFixed(2)}`).join(' ');
+  const generator = line<{ x: number; y: number }>()
+    .x((d) => d.x)
+    .y((d) => d.y)
+    .curve(curveMonotoneX);
+
+  return generator(usable) || '';
 }
 
 function valueAtAge(points: CurvePoint[], targetAge: number): number | null {

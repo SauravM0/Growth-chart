@@ -18,8 +18,20 @@ describe('derived helpers', () => {
 
   test('computes height velocity between sequential rows', () => {
     const prev = { dateISO: '2024-01-01', heightCm: 100 };
-    const next = { dateISO: '2025-01-01', heightCm: 108 };
-    expect(computeVelocity(prev, next)).toBeCloseTo(8, 1);
+    const next = { dateISO: '2025-01-01', heightCm: 106 };
+    expect(computeVelocity(prev, next, '2020-01-01')).toBeCloseTo(6, 1);
+  });
+
+  test('returns null height velocity when dates are the same', () => {
+    const prev = { dateISO: '2024-01-01', heightCm: 100 };
+    const next = { dateISO: '2024-01-01', heightCm: 106 };
+    expect(computeVelocity(prev, next, '2020-01-01')).toBeNull();
+  });
+
+  test('returns null height velocity when DOB is missing', () => {
+    const prev = { dateISO: '2024-01-01', heightCm: 100 };
+    const next = { dateISO: '2025-01-01', heightCm: 106 };
+    expect(computeVelocity(prev, next, '')).toBeNull();
   });
 
   test('returns verify-measurement warnings for suspicious patterns', () => {

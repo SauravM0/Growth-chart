@@ -47,6 +47,31 @@ function pushUniqueWarning(target, message) {
   target.push(message);
 }
 
+function buildMeasurementFieldSummary(input, warnings = []) {
+  const fields = [
+    ['dateISO', input?.dateISO],
+    ['heightCm', input?.heightCm],
+    ['weightKg', input?.weightKg],
+    ['astUPerL', input?.astUPerL],
+    ['altUPerL', input?.altUPerL],
+    ['platelets10e9PerL', input?.platelets10e9PerL],
+    ['creatinineMgDl', input?.creatinineMgDl],
+  ];
+
+  const filled = fields.filter(([, value]) => {
+    if (typeof value === 'string') {
+      return value.trim() !== '';
+    }
+    return value !== null && value !== undefined;
+  }).length;
+
+  return {
+    detected: fields.length,
+    filled,
+    needsReview: Array.isArray(warnings) ? warnings.length : 0,
+  };
+}
+
 async function findByPatientAndDate(patientId, dateISO) {
   const db = await getDb();
   const rows = await db.getAllFromIndex('measurements', 'patientIdDate', [patientId, dateISO]);
@@ -106,7 +131,11 @@ export async function createMeasurement(patientId, payload, patientDobISO) {
     .map((item) => item.message);
   patientWarnings.forEach((message) => pushUniqueWarning(validation.warnings, message));
 
-  return { measurement: row, warnings: validation.warnings };
+  return {
+    measurement: row,
+    warnings: validation.warnings,
+    fieldSummary: buildMeasurementFieldSummary(input, validation.warnings),
+  };
 }
 
 export async function updateMeasurementById(id, patch, patientDobISO) {
@@ -158,7 +187,22 @@ export async function updateMeasurementById(id, patch, patientDobISO) {
   patientWarnings.forEach((message) => pushUniqueWarning(validation.warnings, message));
 
   await db.put('measurements', merged);
-  return { measurement: merged, warnings: validation.warnings };
+  return {
+    measurement: merged,
+    warnings: validation.warnings,
+    fieldSummary: buildMeasurementFieldSummary(
+      {
+        dateISO: merged.dateISO,
+        heightCm: merged.heightCm,
+        weightKg: merged.weightKg,
+        astUPerL: merged.astUPerL,
+        altUPerL: merged.altUPerL,
+        platelets10e9PerL: merged.platelets10e9PerL,
+        creatinineMgDl: merged.creatinineMgDl,
+      },
+      validation.warnings
+    ),
+  };
 }
 
 export async function deleteMeasurementById(id, options = {}) {

@@ -1,5 +1,3 @@
-export const CALIBRATION_MODE = (process.env.REACT_APP_CALIBRATION_MODE || '').trim().toLowerCase() === 'true';
-
 export type CombinedSexKey = 'M' | 'F';
 
 export type Rect = {
@@ -10,7 +8,6 @@ export type Rect = {
 };
 
 export type CombinedIapSpec = {
-  imagePath: string;
   canvas: {
     width: number;
     height: number;
@@ -94,12 +91,10 @@ const BASE_LAYOUT = {
 export const COMBINED_IAP_TEMPLATE: Record<CombinedSexKey, CombinedIapSpec> = {
   M: {
     ...BASE_LAYOUT,
-    imagePath: '/charts/boys_0_18.png',
     backgroundColor: '#dbeeff',
   },
   F: {
     ...BASE_LAYOUT,
-    imagePath: '/charts/girls_0_18.png',
     backgroundColor: '#ffe1ec',
     axis: {
       ...BASE_LAYOUT.axis,
