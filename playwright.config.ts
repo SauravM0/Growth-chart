@@ -7,8 +7,10 @@ export default defineConfig({
   expect: {
     timeout: 10_000,
     toHaveScreenshot: {
-      // Allow small anti-aliasing/font rasterization differences across CI hosts.
-      maxDiffPixels: 300,
+      // CI hosts can produce ~1% rasterization differences on this large SVG.
+      // Keep tolerance bounded so true visual regressions still fail.
+      maxDiffPixelRatio: 0.012,
+      maxDiffPixels: 9000,
     },
   },
   fullyParallel: false,
