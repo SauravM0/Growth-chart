@@ -11,6 +11,13 @@ type CurveSeries = {
   series: CurvePoint[];
 };
 
+type CurveSeriesMap = Record<string, CurvePoint[]>;
+
+type CombinedCurvesDataset = {
+  height?: CurveSeries[] | CurveSeriesMap;
+  weight?: CurveSeries[] | CurveSeriesMap;
+} | CurveSeries[];
+
 type CurveStroke = {
   id: string;
   centile: string;
@@ -38,26 +45,6 @@ export type CurvesModel = {
 
 const LABEL_ORDER = ['97', '90', '75', '50', '25', '10', '3'];
 
-const BOYS_WEIGHT_ANCHORS: Record<string, Array<[number, number]>> = {
-  '3': [[0, 2.9], [1, 9.8], [2, 11.8], [5, 14.0], [10, 18.0], [14, 27.0], [18, 40.0]],
-  '10': [[0, 3.1], [1, 10.6], [2, 12.8], [5, 15.3], [10, 20.5], [14, 32.0], [18, 47.0]],
-  '25': [[0, 3.3], [1, 11.4], [2, 13.8], [5, 16.8], [10, 24.0], [14, 39.0], [18, 55.0]],
-  '50': [[0, 3.6], [1, 12.2], [2, 14.9], [5, 18.8], [10, 30.0], [14, 48.0], [18, 62.0]],
-  '75': [[0, 4.0], [1, 13.0], [2, 16.1], [5, 20.8], [10, 37.0], [14, 58.0], [18, 70.0]],
-  '90': [[0, 4.4], [1, 13.8], [2, 17.2], [5, 22.5], [10, 44.0], [14, 67.0], [18, 78.0]],
-  '97': [[0, 4.8], [1, 14.7], [2, 18.5], [5, 24.3], [10, 50.0], [14, 76.0], [18, 88.0]],
-};
-
-const GIRLS_WEIGHT_ANCHORS: Record<string, Array<[number, number]>> = {
-  '3': [[0, 2.8], [1, 8.8], [2, 10.5], [5, 12.2], [10, 17.8], [14, 25.5], [18, 35.0]],
-  '10': [[0, 3.0], [1, 9.5], [2, 11.5], [5, 13.5], [10, 20.0], [14, 29.0], [18, 41.0]],
-  '25': [[0, 3.2], [1, 10.3], [2, 12.5], [5, 14.8], [10, 23.0], [14, 34.0], [18, 47.0]],
-  '50': [[0, 3.4], [1, 11.0], [2, 13.5], [5, 16.0], [10, 27.0], [14, 40.0], [18, 53.0]],
-  '75': [[0, 3.8], [1, 11.8], [2, 14.7], [5, 17.8], [10, 31.0], [14, 47.0], [18, 58.0]],
-  '90': [[0, 4.1], [1, 12.6], [2, 15.8], [5, 19.6], [10, 35.0], [14, 53.0], [18, 66.0]],
-  '97': [[0, 4.5], [1, 13.5], [2, 17.0], [5, 21.0], [10, 40.0], [14, 60.0], [18, 74.0]],
-};
-
 function mapX(value: number, spec: CombinedIapSpec): number {
   const { xMin, xMax } = spec.axis;
   const rect = spec.mainPlot;
@@ -76,15 +63,44 @@ function mapY(value: number, spec: CombinedIapSpec): number {
   return rect.y + rect.h - ((value - yMin) / (yMax - yMin)) * rect.h;
 }
 
-function normalizeSeries(curves: CurveSeries[]): Map<string, CurvePoint[]> {
+function normalizeSeries(curves: CurveSeries[] | CurveSeriesMap): Map<string, CurvePoint[]> {
   const map = new Map<string, CurvePoint[]>();
-  for (const row of curves || []) {
-    if (!row || !row.centile || !Array.isArray(row.series)) {
-      continue;
+  if (Array.isArray(curves)) {
+    for (const row of curves || []) {
+      if (!row || !row.centile || !Array.isArray(row.series)) {
+        continue;
+      }
+      map.set(String(row.centile), row.series);
     }
-    map.set(String(row.centile), row.series);
+    return map;
   }
+
+  if (curves && typeof curves === 'object') {
+    for (const [centile, series] of Object.entries(curves)) {
+      if (!Array.isArray(series)) {
+        continue;
+      }
+      map.set(String(centile), series);
+    }
+  }
+
   return map;
+}
+
+function splitCurveCollections(curves: CombinedCurvesDataset): { heightMap: Map<string, CurvePoint[]>; weightMap: Map<string, CurvePoint[]> } {
+  if (Array.isArray(curves)) {
+    return {
+      heightMap: normalizeSeries(curves),
+      weightMap: new Map<string, CurvePoint[]>(),
+    };
+  }
+
+  const heightSource = curves?.height || [];
+  const weightSource = curves?.weight || [];
+  return {
+    heightMap: normalizeSeries(heightSource),
+    weightMap: normalizeSeries(weightSource),
+  };
 }
 
 function curvePath(points: CurvePoint[], spec: CombinedIapSpec): string {
@@ -131,13 +147,8 @@ function valueAtAge(points: CurvePoint[], targetAge: number): number | null {
   return null;
 }
 
-function anchorsToSeries(anchors: Array<[number, number]>): CurvePoint[] {
-  return anchors.map(([ageYears, valueY]) => ({ ageYears, valueY }));
-}
-
-export function buildCurvesModel(spec: CombinedIapSpec, curves: CurveSeries[], sex = 'F'): CurvesModel {
-  const heightMap = normalizeSeries(curves);
-  const weightAnchorMap = sex === 'M' ? BOYS_WEIGHT_ANCHORS : GIRLS_WEIGHT_ANCHORS;
+export function buildCurvesModel(spec: CombinedIapSpec, curves: CombinedCurvesDataset, _sex = 'F'): CurvesModel {
+  const { heightMap, weightMap } = splitCurveCollections(curves);
 
   const strokes: CurveStroke[] = [];
   for (const centile of LABEL_ORDER.slice().reverse()) {
@@ -153,7 +164,7 @@ export function buildCurvesModel(spec: CombinedIapSpec, curves: CurveSeries[], s
       });
     }
 
-    const weightPoints = anchorsToSeries(weightAnchorMap[centile] || []);
+    const weightPoints = weightMap.get(centile) || [];
     const weightPath = curvePath(weightPoints, spec);
     if (weightPath) {
       strokes.push({
@@ -180,7 +191,7 @@ export function buildCurvesModel(spec: CombinedIapSpec, curves: CurveSeries[], s
   });
 
   const weightLabels = LABEL_ORDER.map((centile) => {
-    const points = anchorsToSeries(weightAnchorMap[centile] || []);
+    const points = weightMap.get(centile) || [];
     const yValue = valueAtAge(points, labelAge);
     return {
       centile,

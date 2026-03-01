@@ -1,0 +1,48 @@
+name: growth-data-checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      approve_over_threshold:
+        description: Allow curve diff above threshold
+        required: false
+        default: false
+        type: boolean
+      curve_diff_threshold:
+        description: Max allowed absolute deviation (cm/kg)
+        required: false
+        default: '0.15'
+        type: string
+
+jobs:
+  growth-data:
+    runs-on: ubuntu-latest
+    env:
+      CURVE_DIFF_THRESHOLD: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.curve_diff_threshold || vars.CURVE_DIFF_THRESHOLD }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate curves
+        run: npm run growth:generate
+
+      - name: Run growth-data tests
+        run: npm run growth:test
+
+      - name: Curve diff guardrail
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ github.event.inputs.approve_over_threshold }}" = "true" ]; then
+            npm run growth:diff -- --allow-over-threshold
+          else
+            npm run growth:diff
+          fi

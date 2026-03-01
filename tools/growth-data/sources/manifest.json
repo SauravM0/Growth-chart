@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "description": "Pass-through source mapping to current combined chart data. Replace with authoritative numeric tables in future stages.",
+  "references": {
+    "whoVersion": "WHO 2006 Child Growth Standards",
+    "iapVersion": "IAP 2015 Growth References"
+  },
+  "inputs": {
+    "boys": "src/data/combined/boys_combined_curves.json",
+    "girls": "src/data/combined/girls_combined_curves.json"
+  },
+  "blendWindow": {
+    "startAgeYears": 4.75,
+    "endAgeYears": 5.25,
+    "stepYears": 0.05
+  }
+}

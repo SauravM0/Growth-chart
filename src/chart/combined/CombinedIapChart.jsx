@@ -5,6 +5,7 @@ import { buildCurvesModel } from './renderCurves';
 import { buildBmiInsetModel } from './renderBmiInset';
 import { buildMphTableModel } from './renderMphTable';
 import { explainMeasurementExclusions, prepareMeasurementPoints } from '../points';
+import { evaluateMeasurementAgainstCurves } from './centileUtils';
 import boysCombinedCurves from '../../data/combined/boys_combined_curves.json';
 import girlsCombinedCurves from '../../data/combined/girls_combined_curves.json';
 
@@ -69,11 +70,25 @@ function pointsToPath(points, key, spec) {
   return `M${mapped[0]} ${mapped.slice(1).map((point) => `L${point}`).join(' ')}`;
 }
 
+function formatMeasurementLabel(point, value, unit, stats) {
+  const ageText = Number.isFinite(point?.ageYears) ? `${point.ageYears.toFixed(1)}y` : 'age ?';
+  const valueText = Number.isFinite(value) ? `${value.toFixed(1)} ${unit}` : `? ${unit}`;
+  const centileText = Number.isFinite(stats?.interpolatedCentile)
+    ? `${stats.isApproxCentile ? '~' : ''}P${stats.interpolatedCentile.toFixed(1)}`
+    : 'P?';
+  const zScoreText = Number.isFinite(stats?.zScore)
+    ? ` | Z ${stats.zScore >= 0 ? '+' : ''}${stats.zScore.toFixed(2)}`
+    : '';
+  return `${ageText} | ${valueText} | ${centileText}${zScoreText}`;
+}
+
 function CombinedIapChart({
   sex = '',
   measurements = [],
   dobISO = '',
   showValues = false,
+  mphCm = null,
+  showMphCentileOverlay = false,
   specOverrides = null,
   className = '',
   onDiagnostics = null,
@@ -85,6 +100,20 @@ function CombinedIapChart({
   );
   const debugEnabled = isDebugOverlayEnabled();
   const extractedCurves = sex === 'M' ? boysCombinedCurves : girlsCombinedCurves;
+  const metricCurves = useMemo(
+    () => ({
+      height: extractedCurves?.height || {},
+      weight: extractedCurves?.weight || {},
+    }),
+    [extractedCurves]
+  );
+  const lmsCurves = useMemo(
+    () => ({
+      height: extractedCurves?.lms?.height || extractedCurves?.heightLms || null,
+      weight: extractedCurves?.lms?.weight || extractedCurves?.weightLms || null,
+    }),
+    [extractedCurves]
+  );
   const measurementPoints = useMemo(
     () => (dobISO ? prepareMeasurementPoints(measurements, dobISO) : []),
     [measurements, dobISO]
@@ -123,7 +152,7 @@ function CombinedIapChart({
         effectiveAxisYMax: effectiveSpec.axis.yMax,
       };
     },
-    [measurements, dobISO, effectiveSpec.axis, axisAutoExtended, spec.axis.yMax, effectiveSpec.axis.yMax]
+    [measurements, dobISO, effectiveSpec.axis, axisAutoExtended, spec.axis.yMax]
   );
   useEffect(() => {
     if (typeof onDiagnostics === 'function') {
@@ -152,6 +181,27 @@ function CombinedIapChart({
   );
   const heightPath = useMemo(() => pointsToPath(heightPoints, 'heightCm', effectiveSpec), [heightPoints, effectiveSpec]);
   const weightPath = useMemo(() => pointsToPath(weightPoints, 'weightKg', effectiveSpec), [weightPoints, effectiveSpec]);
+  const mphOverlay = useMemo(() => {
+    if (!showMphCentileOverlay || !Number.isFinite(mphCm)) {
+      return null;
+    }
+    const inRange = mphCm >= effectiveSpec.axis.yMin && mphCm <= effectiveSpec.axis.yMax;
+    if (!inRange) {
+      return null;
+    }
+
+    const stats = evaluateMeasurementAgainstCurves({
+      ageYears: effectiveSpec.axis.xMax,
+      value: mphCm,
+      metricCurves: metricCurves.height,
+      lms: lmsCurves.height,
+    });
+
+    return {
+      y: mapValueToPlotY(mphCm, effectiveSpec),
+      label: `MPH ${mphCm.toFixed(1)} cm | ${Number.isFinite(stats.interpolatedCentile) ? `~P${stats.interpolatedCentile.toFixed(1)}` : 'P?'}`,
+    };
+  }, [showMphCentileOverlay, mphCm, effectiveSpec, metricCurves.height, lmsCurves.height]);
   const titleText = sex === 'M'
     ? 'WHO 2006 & IAP 2015 combined Boys Charts 0-18 Years'
     : 'WHO 2006 & IAP 2015 combined Girls Charts 0-18 Years';
@@ -279,9 +329,40 @@ function CombinedIapChart({
           />
         )}
 
+        {mphOverlay && (
+          <>
+            <line
+              x1={grid.rect.x}
+              y1={mphOverlay.y}
+              x2={grid.rect.x + grid.rect.w}
+              y2={mphOverlay.y}
+              stroke="#166534"
+              strokeWidth="1.6"
+              strokeDasharray="7 5"
+              strokeOpacity="0.85"
+            />
+            <text
+              x={grid.rect.x + grid.rect.w - 10}
+              y={mphOverlay.y - 6}
+              textAnchor="end"
+              fontSize="11"
+              fontWeight="700"
+              fill="#166534"
+            >
+              {mphOverlay.label}
+            </text>
+          </>
+        )}
+
         {heightPoints.map((point) => {
           const x = mapAgeToPlotX(point.ageYears, effectiveSpec);
           const y = mapValueToPlotY(point.heightCm, effectiveSpec);
+          const stats = evaluateMeasurementAgainstCurves({
+            ageYears: point.ageYears,
+            value: point.heightCm,
+            metricCurves: metricCurves.height,
+            lms: lmsCurves.height,
+          });
           return (
             <g key={`height-marker-${point.id || `${point.dateISO}-${point.ageYears}`}`}>
               <circle
@@ -301,7 +382,7 @@ function CombinedIapChart({
                   fontWeight="600"
                   fill="#111111"
                 >
-                  {`${point.heightCm.toFixed(1)} cm`}
+                  {formatMeasurementLabel(point, point.heightCm, 'cm', stats)}
                 </text>
               )}
             </g>
@@ -311,6 +392,12 @@ function CombinedIapChart({
         {weightPoints.map((point) => {
           const x = mapAgeToPlotX(point.ageYears, effectiveSpec);
           const y = mapValueToPlotY(point.weightKg, effectiveSpec);
+          const stats = evaluateMeasurementAgainstCurves({
+            ageYears: point.ageYears,
+            value: point.weightKg,
+            metricCurves: metricCurves.weight,
+            lms: lmsCurves.weight,
+          });
           return (
             <g key={`weight-marker-${point.id || `${point.dateISO}-${point.ageYears}`}`}>
               <circle
@@ -330,7 +417,7 @@ function CombinedIapChart({
                   fontWeight="600"
                   fill="#111111"
                 >
-                  {`${point.weightKg.toFixed(1)} kg`}
+                  {formatMeasurementLabel(point, point.weightKg, 'kg', stats)}
                 </text>
               )}
             </g>
@@ -374,6 +461,16 @@ function CombinedIapChart({
           fill="#374151"
         >
           Age in Years
+        </text>
+        <text
+          x={grid.rect.x + grid.rect.w / 2}
+          y={grid.rect.y + grid.rect.h + 128}
+          textAnchor="middle"
+          fontSize="12"
+          fontWeight="600"
+          fill="#4b5563"
+        >
+          For clinical support; interpret with clinical context; confirm with source references.
         </text>
         <text
           x={grid.rect.x - 150}

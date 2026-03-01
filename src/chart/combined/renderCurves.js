@@ -2,26 +2,6 @@ import { curveMonotoneX, line } from 'd3-shape';
 
 const LABEL_ORDER = ['97', '90', '75', '50', '25', '10', '3'];
 
-const BOYS_WEIGHT_ANCHORS = {
-  '3': [[0, 2.9], [1, 9.8], [2, 11.8], [5, 14.0], [10, 18.0], [14, 27.0], [18, 40.0]],
-  '10': [[0, 3.1], [1, 10.6], [2, 12.8], [5, 15.3], [10, 20.5], [14, 32.0], [18, 47.0]],
-  '25': [[0, 3.3], [1, 11.4], [2, 13.8], [5, 16.8], [10, 24.0], [14, 39.0], [18, 55.0]],
-  '50': [[0, 3.6], [1, 12.2], [2, 14.9], [5, 18.8], [10, 30.0], [14, 48.0], [18, 62.0]],
-  '75': [[0, 4.0], [1, 13.0], [2, 16.1], [5, 20.8], [10, 37.0], [14, 58.0], [18, 70.0]],
-  '90': [[0, 4.4], [1, 13.8], [2, 17.2], [5, 22.5], [10, 44.0], [14, 67.0], [18, 78.0]],
-  '97': [[0, 4.8], [1, 14.7], [2, 18.5], [5, 24.3], [10, 50.0], [14, 76.0], [18, 88.0]],
-};
-
-const GIRLS_WEIGHT_ANCHORS = {
-  '3': [[0, 2.8], [1, 8.8], [2, 10.5], [5, 12.2], [10, 17.8], [14, 25.5], [18, 35.0]],
-  '10': [[0, 3.0], [1, 9.5], [2, 11.5], [5, 13.5], [10, 20.0], [14, 29.0], [18, 41.0]],
-  '25': [[0, 3.2], [1, 10.3], [2, 12.5], [5, 14.8], [10, 23.0], [14, 34.0], [18, 47.0]],
-  '50': [[0, 3.4], [1, 11.0], [2, 13.5], [5, 16.0], [10, 27.0], [14, 40.0], [18, 53.0]],
-  '75': [[0, 3.8], [1, 11.8], [2, 14.7], [5, 17.8], [10, 31.0], [14, 47.0], [18, 58.0]],
-  '90': [[0, 4.1], [1, 12.6], [2, 15.8], [5, 19.6], [10, 35.0], [14, 53.0], [18, 66.0]],
-  '97': [[0, 4.5], [1, 13.5], [2, 17.0], [5, 21.0], [10, 40.0], [14, 60.0], [18, 74.0]],
-};
-
 const RIGHT_LABEL_GAP_X = 6;
 const HEIGHT_LABEL_MIN_GAP = 26;
 const WEIGHT_LABEL_MIN_GAP = 22;
@@ -47,13 +27,42 @@ function mapY(value, spec) {
 
 function normalizeSeries(curves) {
   const map = new Map();
-  for (const row of curves || []) {
-    if (!row || !row.centile || !Array.isArray(row.series)) {
-      continue;
+  if (Array.isArray(curves)) {
+    for (const row of curves) {
+      if (!row || !row.centile || !Array.isArray(row.series)) {
+        continue;
+      }
+      map.set(String(row.centile), row.series);
     }
-    map.set(String(row.centile), row.series);
+    return map;
+  }
+
+  if (curves && typeof curves === 'object') {
+    for (const [centile, series] of Object.entries(curves)) {
+      if (!Array.isArray(series)) {
+        continue;
+      }
+      map.set(String(centile), series);
+    }
   }
   return map;
+}
+
+function splitCurveCollections(curves) {
+  if (Array.isArray(curves)) {
+    return {
+      heightMap: normalizeSeries(curves),
+      weightMap: new Map(),
+    };
+  }
+
+  const heightSource = curves && typeof curves === 'object' && curves.height ? curves.height : [];
+  const weightSource = curves && typeof curves === 'object' && curves.weight ? curves.weight : [];
+
+  return {
+    heightMap: normalizeSeries(heightSource),
+    weightMap: normalizeSeries(weightSource),
+  };
 }
 
 function curvePath(points, spec) {
@@ -172,10 +181,6 @@ function densifyAdaptive(points) {
   return early.concat(later);
 }
 
-function anchorsToSeries(anchors) {
-  return (anchors || []).map(([ageYears, valueY]) => ({ ageYears, valueY }));
-}
-
 function getSeriesEndpoint(points) {
   const usable = (points || []).filter(
     (point) => Number.isFinite(point?.ageYears) && Number.isFinite(point?.valueY)
@@ -224,9 +229,8 @@ function resolveLabelCollisions(labels, minGap, spec) {
   return restored;
 }
 
-export function buildCurvesModel(spec, curves, sex = 'F') {
-  const heightMap = normalizeSeries(curves);
-  const weightAnchorMap = sex === 'M' ? BOYS_WEIGHT_ANCHORS : GIRLS_WEIGHT_ANCHORS;
+export function buildCurvesModel(spec, curves, _sex = 'F') {
+  const { heightMap, weightMap } = splitCurveCollections(curves);
 
   const strokes = [];
   for (const centile of LABEL_ORDER.slice().reverse()) {
@@ -243,7 +247,7 @@ export function buildCurvesModel(spec, curves, sex = 'F') {
       });
     }
 
-    const weightPoints = anchorsToSeries(weightAnchorMap[centile] || []);
+    const weightPoints = weightMap.get(centile) || [];
     const denseWeight = densifyAdaptive(weightPoints);
     const weightPath = curvePath(denseWeight, spec);
     if (weightPath) {
@@ -271,7 +275,7 @@ export function buildCurvesModel(spec, curves, sex = 'F') {
   });
 
   const weightLabelsRaw = LABEL_ORDER.map((centile) => {
-    const points = anchorsToSeries(weightAnchorMap[centile] || []);
+    const points = weightMap.get(centile) || [];
     const endpoint = getSeriesEndpoint(points);
     const yValue = endpoint ? endpoint.valueY : valueAtAge(points, spec.axis.xMax);
     return {

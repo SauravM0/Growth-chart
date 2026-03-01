@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests/visual',
-  snapshotPathTemplate: '{testDir}/{testFilePath}-snapshots/{arg}-{projectName}{ext}',
+  snapshotPathTemplate: 'artifacts/baseline/{arg}{ext}',
   timeout: 60_000,
   expect: {
     timeout: 10_000,

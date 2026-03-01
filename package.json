@@ -21,8 +21,16 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "visual:serve": "serve -s build -l 4173",
-    "visual:test": "playwright test",
-    "visual:update": "playwright test --update-snapshots",
+    "visual:test": "playwright test tests/visual/combined-chart.spec.ts",
+    "visual:update": "playwright test tests/visual/combined-chart.spec.ts --update-snapshots",
+    "visual:baseline": "node tools/generate-visual-baseline.mjs",
+    "growth:test": "tsx --test tools/growth-data/*.test.ts",
+    "growth:who:bootstrap": "tsx tools/growth-data/scripts/exportWho2006FromCombined.ts",
+    "growth:iap:bootstrap": "tsx tools/growth-data/scripts/exportIap2015FromCombined.ts",
+    "growth:generate": "tsx tools/growth-data/generateCombinedCurves.ts",
+    "growth:diff": "tsx tools/growth-data/curveDiff.ts",
+    "growth:ci": "npm run growth:generate && npm run growth:test && npm run growth:diff",
+    "growth:regen-and-verify": "npm run growth:generate && npm run growth:test && npm run growth:diff",
     "visual:install": "playwright install --with-deps chromium"
   },
   "eslintConfig": {
@@ -49,6 +57,7 @@
     "fake-indexeddb": "^6.2.5",
     "postcss": "^8.5.6",
     "serve": "^14.2.4",
-    "tailwindcss": "^3.4.19"
+    "tailwindcss": "^3.4.19",
+    "tsx": "^4.21.0"
   }
 }

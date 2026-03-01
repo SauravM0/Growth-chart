@@ -427,6 +427,8 @@ function PatientDetailPage() {
               measurements={measurements}
               dobISO={patient?.dobISO}
               showValues={showCombinedValues}
+              mphCm={mphCm}
+              showMphCentileOverlay
               onDiagnostics={setPlotDiagnostics}
               className="w-full"
             />

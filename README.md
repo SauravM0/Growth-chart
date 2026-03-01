@@ -86,3 +86,32 @@ vercel --prod
 - Open `/patients` directly and refresh the page (should not 404).
 - Open one dynamic patient route like `/patients/<id>`.
 - Confirm chart rendering and print view load correctly.
+
+## Visual Baseline Generation
+
+This repo includes deterministic visual snapshots for combined charts:
+
+- Boys combined chart: `/visual/combined?sex=M`
+- Girls combined chart: `/visual/combined?sex=F`
+
+Baselines are stored in `artifacts/baseline/` and used by Playwright snapshot tests.
+
+Install browser dependency once:
+
+```bash
+npm run visual:install
+```
+
+Generate or refresh baseline images:
+
+```bash
+npm run visual:baseline
+```
+
+Run visual regression check against `artifacts/baseline`:
+
+```bash
+npm run visual:test
+```
+
+If intentional visual changes are made later, regenerate snapshots with `npm run visual:baseline` and commit updated files in `artifacts/baseline/`.

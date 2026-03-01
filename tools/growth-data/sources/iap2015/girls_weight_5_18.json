@@ -1,0 +1,272 @@
+[
+  {
+    "ageYears": 5,
+    "centile3": 12.2,
+    "centile10": 13.5,
+    "centile25": 14.8,
+    "centile50": 16,
+    "centile75": 17.8,
+    "centile90": 19.6,
+    "centile97": 21
+  },
+  {
+    "ageYears": 5.5,
+    "centile3": 12.76,
+    "centile10": 14.15,
+    "centile25": 15.62,
+    "centile50": 17.1,
+    "centile75": 19.12,
+    "centile90": 21.14,
+    "centile97": 22.9
+  },
+  {
+    "ageYears": 6,
+    "centile3": 13.32,
+    "centile10": 14.8,
+    "centile25": 16.44,
+    "centile50": 18.2,
+    "centile75": 20.44,
+    "centile90": 22.68,
+    "centile97": 24.8
+  },
+  {
+    "ageYears": 6.5,
+    "centile3": 13.88,
+    "centile10": 15.45,
+    "centile25": 17.26,
+    "centile50": 19.3,
+    "centile75": 21.76,
+    "centile90": 24.22,
+    "centile97": 26.7
+  },
+  {
+    "ageYears": 7,
+    "centile3": 14.44,
+    "centile10": 16.1,
+    "centile25": 18.08,
+    "centile50": 20.4,
+    "centile75": 23.08,
+    "centile90": 25.76,
+    "centile97": 28.6
+  },
+  {
+    "ageYears": 7.5,
+    "centile3": 15,
+    "centile10": 16.75,
+    "centile25": 18.9,
+    "centile50": 21.5,
+    "centile75": 24.4,
+    "centile90": 27.3,
+    "centile97": 30.5
+  },
+  {
+    "ageYears": 8,
+    "centile3": 15.56,
+    "centile10": 17.4,
+    "centile25": 19.72,
+    "centile50": 22.6,
+    "centile75": 25.72,
+    "centile90": 28.84,
+    "centile97": 32.4
+  },
+  {
+    "ageYears": 8.5,
+    "centile3": 16.12,
+    "centile10": 18.05,
+    "centile25": 20.54,
+    "centile50": 23.7,
+    "centile75": 27.04,
+    "centile90": 30.38,
+    "centile97": 34.3
+  },
+  {
+    "ageYears": 9,
+    "centile3": 16.68,
+    "centile10": 18.7,
+    "centile25": 21.36,
+    "centile50": 24.8,
+    "centile75": 28.36,
+    "centile90": 31.92,
+    "centile97": 36.2
+  },
+  {
+    "ageYears": 9.5,
+    "centile3": 17.24,
+    "centile10": 19.35,
+    "centile25": 22.18,
+    "centile50": 25.9,
+    "centile75": 29.68,
+    "centile90": 33.46,
+    "centile97": 38.1
+  },
+  {
+    "ageYears": 10,
+    "centile3": 17.8,
+    "centile10": 20,
+    "centile25": 23,
+    "centile50": 27,
+    "centile75": 31,
+    "centile90": 35,
+    "centile97": 40
+  },
+  {
+    "ageYears": 10.5,
+    "centile3": 18.7625,
+    "centile10": 21.125,
+    "centile25": 24.375,
+    "centile50": 28.625,
+    "centile75": 33,
+    "centile90": 37.25,
+    "centile97": 42.5
+  },
+  {
+    "ageYears": 11,
+    "centile3": 19.725,
+    "centile10": 22.25,
+    "centile25": 25.75,
+    "centile50": 30.25,
+    "centile75": 35,
+    "centile90": 39.5,
+    "centile97": 45
+  },
+  {
+    "ageYears": 11.5,
+    "centile3": 20.6875,
+    "centile10": 23.375,
+    "centile25": 27.125,
+    "centile50": 31.875,
+    "centile75": 37,
+    "centile90": 41.75,
+    "centile97": 47.5
+  },
+  {
+    "ageYears": 12,
+    "centile3": 21.65,
+    "centile10": 24.5,
+    "centile25": 28.5,
+    "centile50": 33.5,
+    "centile75": 39,
+    "centile90": 44,
+    "centile97": 50
+  },
+  {
+    "ageYears": 12.5,
+    "centile3": 22.6125,
+    "centile10": 25.625,
+    "centile25": 29.875,
+    "centile50": 35.125,
+    "centile75": 41,
+    "centile90": 46.25,
+    "centile97": 52.5
+  },
+  {
+    "ageYears": 13,
+    "centile3": 23.575,
+    "centile10": 26.75,
+    "centile25": 31.25,
+    "centile50": 36.75,
+    "centile75": 43,
+    "centile90": 48.5,
+    "centile97": 55
+  },
+  {
+    "ageYears": 13.5,
+    "centile3": 24.5375,
+    "centile10": 27.875,
+    "centile25": 32.625,
+    "centile50": 38.375,
+    "centile75": 45,
+    "centile90": 50.75,
+    "centile97": 57.5
+  },
+  {
+    "ageYears": 14,
+    "centile3": 25.5,
+    "centile10": 29,
+    "centile25": 34,
+    "centile50": 40,
+    "centile75": 47,
+    "centile90": 53,
+    "centile97": 60
+  },
+  {
+    "ageYears": 14.5,
+    "centile3": 26.6875,
+    "centile10": 30.5,
+    "centile25": 35.625,
+    "centile50": 41.625,
+    "centile75": 48.375,
+    "centile90": 54.625,
+    "centile97": 61.75
+  },
+  {
+    "ageYears": 15,
+    "centile3": 27.875,
+    "centile10": 32,
+    "centile25": 37.25,
+    "centile50": 43.25,
+    "centile75": 49.75,
+    "centile90": 56.25,
+    "centile97": 63.5
+  },
+  {
+    "ageYears": 15.5,
+    "centile3": 29.0625,
+    "centile10": 33.5,
+    "centile25": 38.875,
+    "centile50": 44.875,
+    "centile75": 51.125,
+    "centile90": 57.875,
+    "centile97": 65.25
+  },
+  {
+    "ageYears": 16,
+    "centile3": 30.25,
+    "centile10": 35,
+    "centile25": 40.5,
+    "centile50": 46.5,
+    "centile75": 52.5,
+    "centile90": 59.5,
+    "centile97": 67
+  },
+  {
+    "ageYears": 16.5,
+    "centile3": 31.4375,
+    "centile10": 36.5,
+    "centile25": 42.125,
+    "centile50": 48.125,
+    "centile75": 53.875,
+    "centile90": 61.125,
+    "centile97": 68.75
+  },
+  {
+    "ageYears": 17,
+    "centile3": 32.625,
+    "centile10": 38,
+    "centile25": 43.75,
+    "centile50": 49.75,
+    "centile75": 55.25,
+    "centile90": 62.75,
+    "centile97": 70.5
+  },
+  {
+    "ageYears": 17.5,
+    "centile3": 33.8125,
+    "centile10": 39.5,
+    "centile25": 45.375,
+    "centile50": 51.375,
+    "centile75": 56.625,
+    "centile90": 64.375,
+    "centile97": 72.25
+  },
+  {
+    "ageYears": 18,
+    "centile3": 35,
+    "centile10": 41,
+    "centile25": 47,
+    "centile50": 53,
+    "centile75": 58,
+    "centile90": 66,
+    "centile97": 74
+  }
+]
