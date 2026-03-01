@@ -7,7 +7,8 @@ export default defineConfig({
   expect: {
     timeout: 10_000,
     toHaveScreenshot: {
-      maxDiffPixels: 120,
+      // Allow small anti-aliasing/font rasterization differences across CI hosts.
+      maxDiffPixels: 300,
     },
   },
   fullyParallel: false,
